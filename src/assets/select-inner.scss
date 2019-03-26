@@ -1,0 +1,57 @@
+$InnerWarpPrefixCls: "xy-select-inner";
+
+.#{$InnerWarpPrefixCls} {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-top-width: 1.02px;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    user-select: none;
+    font-size: 14px;
+
+    &:hover,
+    &:focus {
+        border-color: #40a9ff;
+        border-right-width: 1px !important;
+        outline: 0;
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    }
+}
+
+.#{$InnerWarpPrefixCls}__rendered {
+    position: relative;
+    display: block;
+    margin-right: 11px;
+    margin-left: 11px;
+    line-height: 30px;
+    font-size: 13px;
+}
+
+.#{$InnerWarpPrefixCls}__placeholder {
+    color: #bfbfbf;
+}
+
+.#{$InnerWarpPrefixCls}__arrow {
+    display: inline-block;
+    text-align: center;
+    text-transform: none;
+    vertical-align: -0.125em;
+    text-rendering: optimizeLegibility;
+    position: absolute;
+    top: 15%;
+    right: 11px;
+    color: rgba(0, 0, 0, 0.35);
+    line-height: 1;
+    font-weight: bold;
+    font-size: 22px;
+
+    span {
+        display: inline-block;
+        transform: rotate(-90deg);
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+}

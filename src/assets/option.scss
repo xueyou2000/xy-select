@@ -1,0 +1,46 @@
+$OptionWarpPrefixCls: "xy-option";
+
+.#{$OptionWarpPrefixCls} {
+    list-style: none;
+    display: block;
+    position: relative;
+    font-size: 13px;
+    padding: 0 10px;
+    margin: 0;
+    line-height: 32px;
+    text-align: left;
+    box-sizing: border-box;
+    user-select: none;
+    color: #48576a;
+    cursor: pointer;
+    transition: 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &:first-child {
+        border-radius: 4px 4px 0 0;
+    }
+
+    &:last-child {
+        border-radius: 0 0 4px 4px;
+    }
+}
+
+.#{$OptionWarpPrefixCls}:hover,
+.#{$OptionWarpPrefixCls}-focus {
+    background-color: #e6f7ff;
+}
+.#{$OptionWarpPrefixCls}-checked:not(.#{$OptionWarpPrefixCls}-disabled) {
+    background-color: #e6f7ff;
+    color: #0076e4;
+}
+.#{$OptionWarpPrefixCls}-disabled {
+    color: rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
+}
+.#{$OptionWarpPrefixCls}.divided {
+    margin-top: 5px;
+    border-top: 1px solid #e9eaec;
+}

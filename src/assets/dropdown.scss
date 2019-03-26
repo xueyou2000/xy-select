@@ -1,0 +1,82 @@
+$DropdownWarpPrefixCls: "xy-select-dropdown";
+
+.#{$DropdownWarpPrefixCls} {
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.65);
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    font-feature-settings: "tnum";
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    z-index: 1050;
+    box-sizing: border-box;
+    font-variant: initial;
+    background-color: #fff;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    animation: 0.3s dropdownOut;
+    font-size: 14px;
+    transform-origin: center top;
+
+    &.#{$DropdownWarpPrefixCls}-state-entering,
+    &.#{$DropdownWarpPrefixCls}-state-entered {
+        animation-fill-mode: both;
+        animation-timing-function: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        animation-play-state: running;
+        display: block;
+    }
+
+    &.#{$DropdownWarpPrefixCls}-state-exiting {
+        animation-fill-mode: both;
+        animation-timing-function: cubic-bezier(0.6, -0.3, 0.74, 0.05);
+        animation-play-state: running;
+    }
+    &.#{$DropdownWarpPrefixCls}-state-entered {
+        animation-play-state: paused;
+        display: block;
+    }
+    &.#{$DropdownWarpPrefixCls}-state-exited {
+        display: none;
+    }
+}
+.#{$DropdownWarpPrefixCls}-open {
+    animation: 0.3s dropdownIn;
+}
+
+.#{$DropdownWarpPrefixCls}__scrollwrap {
+    overflow: auto;
+}
+
+.#{$DropdownWarpPrefixCls}__menu {
+    max-height: 250px;
+    margin: 0;
+    padding-left: 0;
+    overflow: auto;
+    list-style: none;
+    outline: none;
+}
+
+@keyframes dropdownIn {
+    0% {
+        opacity: 0.3;
+        transform: scale(0, 0) scaleY(0.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1, 1) scaleY(1);
+    }
+}
+@keyframes dropdownOut {
+    0% {
+        opacity: 1;
+        transform: scale(1, 1) scaleY(1);
+    }
+    100% {
+        opacity: 0.3;
+        transform: scale(0, 0) scaleY(0.1);
+    }
+}

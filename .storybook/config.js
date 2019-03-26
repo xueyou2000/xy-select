@@ -3,8 +3,8 @@ import { addParameters, configure, storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import readme from "../README.md";
 import Markdown from "./component/MyMarkdown";
-import Component from "../src";
 import "./index.css";
+import "../src/assets/index";
 
 function createExamplesStories() {
     const exampleStories = storiesOf("Examples", module);
@@ -18,11 +18,6 @@ function createExamplesStories() {
 
 function loadStories() {
     storiesOf("Introduction", module).add("ReadMe", () => <Markdown source={readme} />);
-
-    storiesOf("Api", module)
-        .addDecorator(withInfo)
-        .addParameters({ info: { inline: true, source: false } })
-        .add("Props", () => <Component />);
 
     createExamplesStories();
 }
