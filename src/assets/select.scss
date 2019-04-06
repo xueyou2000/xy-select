@@ -1,5 +1,6 @@
 $SelectWarpPrefixCls: "xy-select";
 $InnerWarpPrefixCls: "xy-select-inner";
+$ItemPrefixCls: "xy-select-item";
 
 .#{$SelectWarpPrefixCls} {
     font-family: Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -8,36 +9,21 @@ $InnerWarpPrefixCls: "xy-select-inner";
     box-sizing: border-box;
     position: relative;
     outline: 0;
-
-    // &:focus:not(.#{$SelectWarpPrefixCls}-disabled),
-    // &:hover:not(.#{$SelectWarpPrefixCls}-disabled) {
-    //     .#{$InnerWarpPrefixCls} {
-    //         border-color: #40a9ff;
-    //         border-right-width: 1px !important;
-    //         outline: 0;
-    //         box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
-    //     }
-    // }
 }
-// .#{$SelectWarpPrefixCls}-inner {
-//     outline: none;
-//     user-select: none;
-//     box-sizing: border-box;
-//     display: block;
-//     background-color: #fff;
-//     border-radius: 4px;
-//     border: 1px solid #d9d9d9;
-//     border-top-width: 1.02px;
-//     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-//     position: relative;
-//     cursor: pointer;
-// }
+
 .#{$SelectWarpPrefixCls}-single {
     .#{$InnerWarpPrefixCls} {
         position: relative;
         height: 32px;
         overflow: hidden;
         cursor: pointer;
+    }
+
+    &.#{$SelectWarpPrefixCls}-filter {
+        .#{$InnerWarpPrefixCls}__rendered {
+            height: 32px;
+            overflow: hidden;
+        }
     }
 }
 .#{$SelectWarpPrefixCls}-multiple {
@@ -55,6 +41,15 @@ $InnerWarpPrefixCls: "xy-select-inner";
 
         &::after {
             clear: both;
+        }
+    }
+
+    .#{$ItemPrefixCls} {
+        animation: SelectItemIn 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+        animation-fill-mode: "forwards";
+
+        &.#{$ItemPrefixCls}-out {
+            animation: SelectItemOut 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
         }
     }
 
@@ -76,8 +71,36 @@ $InnerWarpPrefixCls: "xy-select-inner";
         cursor: not-allowed;
     }
 }
+
+.#{$SelectWarpPrefixCls}-filter {
+    .#{$ItemPrefixCls} {
+        display: block;
+        opacity: 1;
+    }
+    .#{$SelectWarpPrefixCls}-search--inline {
+        display: none;
+    }
+}
+
 .#{$SelectWarpPrefixCls}-visible {
     .#{$InnerWarpPrefixCls}__arrow span {
         transform: rotate(90deg);
+    }
+}
+
+.#{$SelectWarpPrefixCls}-visible.#{$SelectWarpPrefixCls}-filter {
+    .#{$ItemPrefixCls} {
+        display: block;
+        opacity: 0.4;
+    }
+    .#{$SelectWarpPrefixCls}-search--inline {
+        display: block;
+    }
+}
+
+.#{$SelectWarpPrefixCls}-filter.#{$SelectWarpPrefixCls}-hide-item {
+    .#{$ItemPrefixCls} {
+        display: block;
+        opacity: 0;
     }
 }

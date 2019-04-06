@@ -1,17 +1,20 @@
-import { useControll, useMount } from "utils-hooks";
 import { SelectedValue, SelectProps } from "@/interface";
 import { useLayoutEffect } from "react";
+import { useControll } from "utils-hooks";
+
+type UseValueReturn = [any, (val: string | number) => void, (val: string | number) => void];
 
 /**
- * 管理select的value
- * @param props
- * @param setVisible
+ * 管理select选中的值
+ * @param props select的属性
+ * @param setVisible    设置可视状态
+ * @param align   对齐函数
  */
-export function useSelectValue(props: SelectProps, setVisible: React.Dispatch<React.SetStateAction<boolean>>, align: Function): [any, (val: string | number) => void, (val: string | number) => void] {
+export default function useValue(props: SelectProps, setVisible: (v: boolean) => void, align: Function): UseValueReturn {
     const { multiple, disabled, onChange } = props;
     const [value, setValue, isControll] = useControll<SelectedValue>(props, "value", "defaultValue", multiple ? [] : null);
 
-    // 多选模式下, 增加多个换行了, 导致select高度改变, 需要重新对齐
+    // Tips: 多选模式下, Select选择器高度随所选值动态改变, 需要重新对齐
     useLayoutEffect(() => {
         if (multiple) {
             align();
@@ -32,7 +35,7 @@ export function useSelectValue(props: SelectProps, setVisible: React.Dispatch<Re
     }
 
     /**
-     * option选中事件
+     * 选中值
      * @param val
      */
     function onSelect(val: string | number) {
@@ -53,7 +56,7 @@ export function useSelectValue(props: SelectProps, setVisible: React.Dispatch<Re
     }
 
     /**
-     * option取消选中
+     * 取消选中值
      * @param val
      */
     function onUnSelect(val: string | number) {

@@ -1,5 +1,7 @@
 export type SelectedValue = any | any[];
 
+export type SelectFilter = (search: string, cfgs: OptionConfig | OptionConfig[]) => boolean;
+
 export interface OptionProps {
     /**
      * 附加类名
@@ -73,6 +75,14 @@ export interface DropdownProps {
      */
     visible: boolean;
     /**
+     * 是否显示空
+     */
+    empy?: boolean;
+    /**
+     * 空内容占位符文本
+     */
+    placeholder?: string;
+    /**
      * scrollwrapRef
      * @description 暴露出包含滚动条的dom元素
      */
@@ -110,6 +120,14 @@ export interface SelectProps {
      */
     defaultValue?: SelectedValue;
     /**
+     * 是否过滤option
+     */
+    filter?: boolean | SelectFilter;
+    /**
+     * 是否焦点
+     */
+    autoFocus?: boolean;
+    /**
      * tabIndex
      */
     tabIndex?: number;
@@ -133,6 +151,11 @@ export interface SelectProps {
      * 搜索
      */
     onSearch?: Function;
+    /**
+     * 内容占位符
+     * @description下拉内容为空时提示文本
+     */
+    empyPlaceholder?: string;
 }
 
 export interface SelectContextState {
@@ -141,9 +164,17 @@ export interface SelectContextState {
      */
     value?: SelectedValue;
     /**
-     * 当前焦点option
+     * 当前焦点值
      */
     focusValue?: string | number;
+    /**
+     * 过滤option
+     */
+    filter?: boolean | SelectFilter;
+    /**
+     * 搜索值
+     */
+    search?: string;
     /**
      * 是否多选
      */
@@ -159,7 +190,7 @@ export interface SelectContextState {
     /**
      * 添加option
      */
-    onOptionAdd?: (value: string | number, label: string, disabled: boolean) => void;
+    onOptionAdd?: (cfg: OptionConfig) => void;
     /**
      * 移除option
      */
@@ -179,8 +210,15 @@ export interface OptionConfig {
      * 是否禁用
      */
     disabled: boolean;
+    /**
+     * 是否过滤
+     */
+    filterd: boolean;
 }
 
+/**
+ * Select选择器
+ */
 export interface SelectInnerProps {
     /**
      * 附加类名
@@ -191,6 +229,10 @@ export interface SelectInnerProps {
      */
     children?: React.ReactNode;
     /**
+     * 是否焦点
+     */
+    autoFocus?: boolean;
+    /**
      * 是否可视
      */
     visible?: boolean;
@@ -199,13 +241,13 @@ export interface SelectInnerProps {
      */
     placeholder?: React.ReactNode;
     /**
+     * 过滤option
+     */
+    filter?: boolean | SelectFilter;
+    /**
      * 已经选中的OptionConfig配置集合
      */
     selectedCfg?: OptionConfig | OptionConfig[];
-    /**
-     * ref
-     */
-    ref?: React.MutableRefObject<any>;
     /**
      * tabIndex
      */
@@ -218,6 +260,10 @@ export interface SelectInnerProps {
      * 键盘事件
      */
     onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
+    /**
+     * 搜索回调
+     */
+    onChangeSearch?: (search: string) => void;
 }
 
 export interface SelectItem {

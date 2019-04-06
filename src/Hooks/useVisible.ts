@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { alignElement } from "utils-dom";
-import { useOutsideClick, useMount } from "utils-hooks";
+import { useOutsideClick } from "utils-hooks";
 
-type useTriggerReturn = [boolean, (v: boolean, isAlign?: boolean) => void, () => void, Function];
+type UseVisibleReturn = [boolean, (v: boolean, isAlign?: boolean) => void, () => void, Function];
 
-export function useSelectVisible(innerRef: React.MutableRefObject<any>, dropdownRef: React.MutableRefObject<any>, disabled: boolean): useTriggerReturn {
+/**
+ * 管理Select下拉列表的可视与对齐
+ * @param innerRef  select选择框
+ * @param dropdownRef   select下拉列表
+ * @param disabled  是否禁用
+ */
+export default function useVisible(innerRef: React.MutableRefObject<any>, dropdownRef: React.MutableRefObject<any>, disabled: boolean, setSearch: (val: string) => void): UseVisibleReturn {
     const [visible, setVisible] = useState(false);
 
     function align() {
@@ -18,11 +24,12 @@ export function useSelectVisible(innerRef: React.MutableRefObject<any>, dropdown
         alignElement(dropdown, innerRef.current, {
             points: ["tl", "bl"],
             offset: [0, 4],
-            overflow: { adjustX: false, adjustY: true }
+            overflow: { adjustX: false, adjustY: true },
         });
     }
 
     function setSelectVisible(visible: boolean, isAlign?: boolean) {
+        const element = innerRef.current as HTMLElement;
         if (visible) {
             if (isAlign) {
                 align();
@@ -30,11 +37,20 @@ export function useSelectVisible(innerRef: React.MutableRefObject<any>, dropdown
             setVisible(true);
         } else {
             setVisible(false);
+            setSearch("");
+            if (element) {
+                const selectInner = element.querySelector(".xy-select-inner") as HTMLElement;
+                selectInner.focus();
+            }
         }
     }
 
-    function selectInnerClickHandle() {
+    function toggleVisible() {
         setSelectVisible(!visible, true);
+    }
+
+    function showVisible() {
+        setSelectVisible(true, true);
     }
 
     // 点击空白处则收起
@@ -42,5 +58,5 @@ export function useSelectVisible(innerRef: React.MutableRefObject<any>, dropdown
         setVisible(false);
     });
 
-    return [visible, setSelectVisible, selectInnerClickHandle, align];
+    return [visible, setSelectVisible, showVisible, align];
 }

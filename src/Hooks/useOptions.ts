@@ -1,45 +1,45 @@
 import { OptionConfig } from "@/interface";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useMount } from "utils-hooks";
-// import shallowequal from "shallowequal";
+
+type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, (cfg: OptionConfig) => void, (value: string | number) => void, (val: any) => OptionConfig | OptionConfig[]];
 
 /**
- * 管理option配置集合
+ * 管理select内声明的option
+ * @export
+ * @param {boolean} multiple    是否多选
+ * @returns UseOptionsReturn
  */
-export function useOptionCollect(value: any, multiple: boolean): [React.MutableRefObject<OptionConfig[]>, (value: string | number, label: string, disabled: boolean) => void, (value: string | number) => void, OptionConfig | OptionConfig[]] {
+export default function useOptions(multiple: boolean): UseOptionsReturn {
     const options = useRef<OptionConfig[]>([]);
     const initRef = useRef(false);
     const [_, updateSelectedCfg] = useState(0);
 
     /**
-     * 添加option配置
-     * @param value
-     * @param label
-     * @param disabled
+     * 添加option
+     * @param cfg
      */
-    function onOptionAdd(value: string | number, label: string, disabled: boolean) {
-        options.current.push({ value, label, disabled });
+    function onOptionAdd(cfg: OptionConfig) {
+        if (!options.current.some((x) => x.value === cfg.value)) {
+            options.current.push(cfg);
+        }
     }
 
     /**
-     * 移除option配置
+     * 移除option
      * @param value
      */
     function onOptionRemove(value: string | number) {
         options.current = options.current.filter((cfg) => cfg.value !== value);
     }
 
-    // function update() {
-    //     const cfgs = getSelectedCfg();
-    //     if (!shallowequal(selectedCfg, cfgs)) {
-    //         updateSelectedCfg(cfgs);
-    //     }
-    // }
-
     /**
-     * 根据当前选中value, 获取对应option配置
+     * 根据prop获取option配置
+     * @param {*} value 值
+     * @param {string} [prop='value']
+     * @returns {(OptionConfig | OptionConfig[])}
      */
-    function getSelectedCfg(): OptionConfig | OptionConfig[] {
+    function getOptionCfg(value: any, prop: string = "value"): OptionConfig | OptionConfig[] {
         if (multiple) {
             const cfgs = [];
             value.forEach((val) => {
@@ -60,5 +60,5 @@ export function useOptionCollect(value: any, multiple: boolean): [React.MutableR
         updateSelectedCfg(1);
     });
 
-    return [options, onOptionAdd, onOptionRemove, getSelectedCfg()];
+    return [options, onOptionAdd, onOptionRemove, getOptionCfg];
 }

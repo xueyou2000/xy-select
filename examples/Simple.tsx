@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Select from "../src/Select";
-import Option from "../src/Option";
-import OptGroup from "../src/OptGroup";
+import { Select, Option, OptGroup } from "../src";
 
 export default function() {
     const [show, setShow] = useState(true);

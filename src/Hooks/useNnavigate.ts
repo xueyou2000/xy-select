@@ -1,131 +1,67 @@
 import { OptionConfig } from "@/interface";
-import { useState, useRef, useEffect, useLayoutEffect } from "react";
-
-export interface NnavigateConfig {
-    onEnter?: Function;
-    onShow?: Function;
-    onHide?: Function;
-    onPrev?: Function;
-    onNext?: Function;
-}
+import { useRef, useState, useCallback } from "react";
+import { CreateNnavigateHandle, locateElement } from "utils-dom";
 
 /**
- * 定位元素
- * @description 将元素定位到wrap可视区域中
- * @param wrap 含有溢出滚动条的容器
- * @param element 元素
+ * 管理Select选择器的键盘导航
+ * @export
+ * @param {React.MutableRefObject<OptionConfig[]>} options  options配置集合
+ * @param {*} value 当前选中值
+ * @param {(val: any) => void} selectValue 设置选中值
+ * @param {boolean} visible 是否显示下拉列表
+ * @param {(vis: boolean, isAlign?: boolean) => void} setVisible    设置下拉列表是否显示
+ * @returns {[any, (e: React.KeyboardEvent<HTMLElement>) => void, React.MutableRefObject<any>]}
  */
-export function locateElement(wrap: HTMLElement, element: HTMLElement) {
-    if (!wrap || !element) {
-        return;
-    }
-    wrap.scrollTop = element.offsetTop - wrap.clientHeight / 2;
-}
-
-/**
- * 键盘导航
- * @param scrollwrapRef 含有溢出滚动条的容器
- * @param config 回调配置
- */
-export function useNnavigate(config: NnavigateConfig) {
-    function handleKeyDown(e: React.KeyboardEvent<HTMLElement>) {
-        switch (e.keyCode) {
-            // Enter
-            case 13:
-                if (config.onEnter) {
-                    config.onEnter();
-                }
-                break;
-            // Space
-            case 32:
-                if (config.onShow) {
-                    config.onShow();
-                }
-                break;
-            // 上方向
-            case 38:
-                if (config.onPrev) {
-                    config.onPrev();
-                }
-                break;
-            // 下方向
-            case 40:
-                if (config.onNext) {
-                    config.onNext();
-                }
-                break;
-            // 取消
-            case 27:
-                if (config.onHide) {
-                    config.onHide();
-                }
-                break;
-        }
-    }
-
-    return handleKeyDown;
-}
-
-export function useSelectNnavigate(
+export default function useNnavigate(
     options: React.MutableRefObject<OptionConfig[]>,
     value: any,
     selectValue: (val: any) => void,
     visible: boolean,
-    setVisible: (vis: boolean, isAlign?: boolean) => void
+    setVisible: (vis: boolean, isAlign?: boolean) => void,
 ): [any, (e: React.KeyboardEvent<HTMLElement>) => void, React.MutableRefObject<any>] {
     const [focusValue, setFocusValue] = useState(value && value.length > 0 ? value[0] : value);
     const scrollwrapRef = useRef();
-    const handleKeyDown = useNnavigate({
+    const handleKeyDown = CreateNnavigateHandle({
         onEnter: () => {
-            // 设置当前 focusValue 去选中
             if (focusValue) {
                 selectValue(focusValue);
             }
         },
         onShow: () => {
-            if (!visible) {
-                setVisible(true, true);
-            }
+            setVisible(true, true);
         },
         onHide: () => {
-            if (visible) {
-                setVisible(false);
-            }
+            setVisible(false);
         },
         onNext: () => {
-            const opts = options.current.filter((x) => !x.disabled);
-            let next = focusValue;
-            const i = opts.findIndex((cfg) => cfg.value === focusValue);
-            if (i === -1) {
-                next = opts[0].value;
-            } else if (i + 1 < opts.length) {
-                next = opts[i + 1].value;
-            }
-            if (next === focusValue) {
-                return;
-            }
-
-            setFocusValue(next);
-            setFocusOption(next);
+            setNextFocus(false);
         },
         onPrev: () => {
-            const opts = options.current.filter((x) => !x.disabled);
-            let next = focusValue;
-            const i = opts.findIndex((cfg) => cfg.value === focusValue);
-            if (i === -1) {
-                next = opts[0].value;
-            } else if (i - 1 >= 0) {
-                next = opts[i - 1].value;
-            }
-            if (next === focusValue) {
-                return;
-            }
-            setFocusValue(next);
-            setFocusOption(next);
-        }
+            setNextFocus();
+        },
     });
 
+    function setNextFocus(isnext = true) {
+        const opts = options.current.filter((x) => !x.disabled && !x.filterd);
+        let next = focusValue;
+        const i = opts.findIndex((cfg) => cfg.value === focusValue);
+        if (i === -1) {
+            next = opts[0].value;
+        } else if (isnext ? i - 1 >= 0 : i + 1 < opts.length) {
+            next = isnext ? opts[i - 1].value : opts[i + 1].value;
+        }
+        if (next === focusValue) {
+            return;
+        }
+        setFocusOption(next);
+    }
+
+    /**
+     * 设置焦点Option
+     * @param value
+     */
     function setFocusOption(value: any) {
+        setFocusValue(value);
         const wrap = scrollwrapRef.current as HTMLElement;
         if (!wrap) {
             return;

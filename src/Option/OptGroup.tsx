@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import { OptGroupProps } from "./interface";
+import { OptGroupProps } from "../interface";
 
 /**
  * Option组

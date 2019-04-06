@@ -1,6 +1,6 @@
-$InnerWarpPrefixCls: "xy-select-item";
+$ItemPrefixCls: "xy-select-item";
 
-.#{$InnerWarpPrefixCls} {
+.#{$ItemPrefixCls} {
     float: left;
     max-width: 100%;
     padding-right: 20px;
@@ -9,7 +9,7 @@ $InnerWarpPrefixCls: "xy-select-item";
     text-overflow: ellipsis;
 }
 
-.#{$InnerWarpPrefixCls}-tag {
+.#{$ItemPrefixCls}-tag {
     position: relative;
     float: left;
     max-width: 99%;
@@ -25,7 +25,7 @@ $InnerWarpPrefixCls: "xy-select-item";
     transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.#{$InnerWarpPrefixCls}__content {
+.#{$ItemPrefixCls}__content {
     display: inline-block;
     max-width: 100%;
     overflow: hidden;
@@ -34,7 +34,7 @@ $InnerWarpPrefixCls: "xy-select-item";
     transition: margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.#{$InnerWarpPrefixCls}__remove {
+.#{$ItemPrefixCls}__remove {
     font-size: 12px;
     color: inherit;
     font-style: normal;
@@ -56,5 +56,27 @@ $InnerWarpPrefixCls: "xy-select-item";
 
     &:hover {
         color: #000;
+    }
+}
+
+@keyframes SelectItemIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes SelectItemOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
     }
 }
