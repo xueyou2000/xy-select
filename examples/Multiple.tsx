@@ -1,22 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import Select from "../src/Select";
 import Option from "../src/Option";
 import OptGroup from "../src/OptGroup";
 
 export default function() {
-    const [show, setShow] = useState(true);
-
-    function handleClick() {
-        console.log("-- click");
-        setShow((prev) => !prev);
-    }
-
     return (
         <div>
-            <h1>简单演示</h1>
-            <Select disabled={false} defaultValue="customer" style={{ width: "180px" }}>
+            <h1>多选</h1>
+            <Select multiple={true} defaultValue={["customer", 0]} style={{ width: "180px" }}>
                 <OptGroup label="水果">
-                    {show && <Option value={0}>是零</Option>}
+                    <Option value={0}>是零</Option>
                     <Option value="pg">苹果</Option>
                     <Option disabled={true} value="xg">
                         西瓜
@@ -44,12 +37,6 @@ export default function() {
                     <Option value="GO">GO</Option>
                 </OptGroup>
             </Select>
-
-            <Select style={{ width: "180px" }} />
-
-            <div>
-                <button onClick={handleClick}>切换选项显示隐藏</button>
-            </div>
         </div>
     );
 }

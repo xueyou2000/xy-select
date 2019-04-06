@@ -25,10 +25,10 @@
 
 ```sh
 # npm
-npm install --save xy-select
+npm install --save xy-select shallowequal
 
 # yarn
-yarn add xy-select
+yarn add xy-select shallowequal
 ```
 
 ## 使用

@@ -1,3 +1,4 @@
+$SelectWarpPrefixCls: "xy-select";
 $InnerWarpPrefixCls: "xy-select-inner";
 
 .#{$InnerWarpPrefixCls} {
@@ -13,8 +14,8 @@ $InnerWarpPrefixCls: "xy-select-inner";
     user-select: none;
     font-size: 14px;
 
-    &:hover,
-    &:focus {
+    &:focus,
+    &:hover {
         border-color: #40a9ff;
         border-right-width: 1px !important;
         outline: 0;
@@ -29,10 +30,37 @@ $InnerWarpPrefixCls: "xy-select-inner";
     margin-left: 11px;
     line-height: 30px;
     font-size: 13px;
+
+    & > ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    & > ul > li {
+        height: 24px;
+        margin-top: 3px;
+        line-height: 22px;
+    }
+
+    &:after {
+        display: inline-block;
+        width: 0;
+        visibility: hidden;
+        pointer-events: none;
+        content: ".";
+    }
 }
 
 .#{$InnerWarpPrefixCls}__placeholder {
     color: #bfbfbf;
+
+    &:after {
+        display: inline-block;
+        width: 0;
+        visibility: hidden;
+        pointer-events: none;
+        content: ".";
+    }
 }
 
 .#{$InnerWarpPrefixCls}__arrow {

@@ -14,10 +14,6 @@ export interface OptionProps {
      */
     style?: React.CSSProperties;
     /**
-     * 是否选中
-     */
-    checked?: boolean;
-    /**
      * 是否禁用
      */
     disabled?: boolean;
@@ -26,17 +22,9 @@ export interface OptionProps {
      */
     divided?: boolean;
     /**
-     * 鼠标悬浮提示
-     */
-    title?: string;
-    /**
-     * 选中得值
+     * 选中的值
      */
     value?: string | number;
-    /**
-     * 是否焦点
-     */
-    focus?: boolean;
     /**
      * 标签
      * @description 对自动提取得标签不满意, 或children内无法提取字符串, 则需手动指定
@@ -79,15 +67,21 @@ export interface DropdownProps {
     /**
      * 内容
      */
-    children?: React.ReactNode;
+    children: React.ReactNode;
     /**
      * 是否可视
      */
-    visible?: boolean;
+    visible: boolean;
     /**
-     * ref
+     * scrollwrapRef
+     * @description 暴露出包含滚动条的dom元素
      */
-    getDropdownRef?: (ref: React.MutableRefObject<any>) => void;
+    scrollwrapRef: React.MutableRefObject<any>;
+    /**
+     * dropdownRef
+     * @description 暴露出dropdown跟节点的dom元素
+     */
+    dropdownRef: React.MutableRefObject<any>;
 }
 
 export interface SelectProps {
@@ -155,9 +149,13 @@ export interface SelectContextState {
      */
     multiple?: boolean;
     /**
-     * option点击事件
+     * option选中事件
      */
-    onSelect?: Function;
+    onSelect?: (val: string | number) => void;
+    /**
+     * option取消选中事件
+     */
+    onUnSelect?: (val: string | number) => void;
     /**
      * 添加option
      */
@@ -208,4 +206,43 @@ export interface SelectInnerProps {
      * ref
      */
     ref?: React.MutableRefObject<any>;
+    /**
+     * tabIndex
+     */
+    tabIndex?: number;
+    /**
+     * 点击事件
+     */
+    onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    /**
+     * 键盘事件
+     */
+    onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
+}
+
+export interface SelectItem {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 根节点的附加类名
+     */
+    className?: string;
+    /**
+     * 内联样式
+     */
+    style?: React.CSSProperties;
+    /**
+     * 内容
+     */
+    children: string;
+    /**
+     * 值
+     */
+    value: string | number;
+    /**
+     * tag风格
+     */
+    tag?: boolean;
 }

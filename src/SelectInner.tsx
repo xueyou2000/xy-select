@@ -1,43 +1,50 @@
-import classNames from "classnames";
-import React, { useContext, useEffect } from "react";
-import { SelectInnerProps } from "./interface";
+import React, { useContext } from "react";
 import { SelectContext } from "./Context";
-import { usePortal, useTranstion } from "utils-hooks";
+import { SelectInnerProps } from "./interface";
+import SelectedItem from "./SelectedItem";
+import { useMount } from "utils-hooks";
 
-/**
- * 自定义实现是否显示右侧箭头, 多选, 等
- * @param props
- */
 export function SelectInner(props: SelectInnerProps) {
-    const { prefixCls = "xy-select-inner", selectedCfg, visible, placeholder = "请选择", ref } = props;
+    const { prefixCls, selectedCfg, onClick, onKeyDown: onKeyPress, tabIndex = 0, placeholder = "请选择", ref } = props;
+    const innerprefixCls = `${prefixCls}-inner`;
     const context = useContext(SelectContext);
 
     function renderPlaceholder() {
-        return <div className={`${prefixCls}__placeholder`}>{placeholder}</div>;
+        return <div className={`${innerprefixCls}__placeholder`}>{placeholder}</div>;
     }
 
     function renderMultiple() {
-        // TODO 以后用 SelectedItem 代替
         if (selectedCfg && selectedCfg instanceof Array) {
-            return selectedCfg.map((x) => <span key={x.value}>{x.label}</span>);
+            return (
+                <ul>
+                    {selectedCfg.map((x) => (
+                        <SelectedItem prefixCls={prefixCls} key={x.value} value={x.value} tag={true}>
+                            {x.label}
+                        </SelectedItem>
+                    ))}
+                </ul>
+            );
         } else {
             return renderPlaceholder();
         }
     }
 
     function renderSingle() {
-        // TODO 以后用 SelectedItem 代替
         if (!selectedCfg || selectedCfg instanceof Array) {
             return renderPlaceholder();
         } else {
-            return <span key={selectedCfg.value}>{selectedCfg.label}</span>;
+            return (
+                <SelectedItem prefixCls={prefixCls} key={selectedCfg.value} value={selectedCfg.value}>
+                    {selectedCfg.label}
+                </SelectedItem>
+            );
         }
     }
 
     return (
-        <div className={prefixCls} ref={ref}>
-            <div className={`${prefixCls}__rendered`}>{context.multiple ? renderMultiple() : renderSingle()}</div>
-            <span className={`${prefixCls}__arrow`}>
+        <div className={innerprefixCls} ref={ref} tabIndex={tabIndex} onClick={onClick} onKeyDown={onKeyPress}>
+            <div className={`${innerprefixCls}__rendered`}>{context.multiple ? renderMultiple() : renderSingle()}</div>
+            <span className={`${innerprefixCls}__arrow`}>
                 <span>‹</span>
             </span>
         </div>

@@ -1,18 +1,8 @@
-import React from "react";
+import Option from "./Option";
+import OptGroup from "./OptGroup";
+import SelectedItem from "./SelectedItem";
+import SelectInner from "./SelectInner";
+import SelectDropdown from "./Dropdown";
+import Select from "./Select";
 
-export interface MyComponentProps {
-    /**
-     * 根节点附加类名
-     */
-    className?: string;
-    /**
-     * 内敛样式
-     */
-    style?: React.CSSProperties;
-}
-
-export function MyComponent(props: MyComponentProps) {
-    return <div>Hello</div>;
-}
-
-export default MyComponent;
+export { Option, OptGroup, SelectedItem, SelectInner, SelectDropdown, Select };

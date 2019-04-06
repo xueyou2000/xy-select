@@ -41,6 +41,7 @@
         "@types/node": "11.9.4",
         "@types/react": "16.8.4",
         "@types/react-dom": "16.8.2",
+        "@types/shallowequal": "^1.1.1",
         "awesome-typescript-loader": "^5.2.1",
         "babel-loader": "^8.0.5",
         "hard-source-webpack-plugin": "^0.13.1",
@@ -56,8 +57,10 @@
         "classnames": "^2.2.6",
         "react": "^16.8.2",
         "react-dom": "^16.8.2",
-        "utils-dom": "0.0.51",
-        "utils-hooks": "0.0.52"
+        "shallowequal": "^1.1.0",
+        "utils-dom": "0.0.52",
+        "utils-hooks": "0.0.54",
+        "xy-empty": "^0.0.2"
     },
     "repository": {
         "type": "git",
