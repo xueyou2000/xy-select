@@ -41,6 +41,7 @@ export function SelectInner(props: SelectInnerProps) {
                             {x.label}
                         </SelectedItem>
                     ))}
+                    {renderSearch()}
                 </ul>
             );
         } else {

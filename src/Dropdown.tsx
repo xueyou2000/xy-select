@@ -30,11 +30,23 @@ export function Dropdown(props: DropdownProps) {
         scrollwrapRef.current = menuRef.current;
     }, [menuRef.current]);
 
+    function renderContent() {
+        if (empy) {
+            return (
+                <Empty style={{ padding: "10px 0" }} description={placeholder}>
+                    {children}
+                </Empty>
+            );
+        } else {
+            return children || <Empty style={{ padding: "10px 0" }} description={placeholder} />;
+        }
+    }
+
     return renderPortal(
         <div className={classString} ref={ref}>
             <div className={`${dropdownPrefixCls}__scrollwrap`}>
                 <ul role="listbox" className={`${dropdownPrefixCls}__menu`} ref={menuRef}>
-                    {empy || !children ? <Empty style={{ padding: "10px 0" }} description={placeholder} /> : children}
+                    {renderContent()}
                 </ul>
             </div>
         </div>,
