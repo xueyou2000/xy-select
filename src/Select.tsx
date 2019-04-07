@@ -1,29 +1,17 @@
 import classNames from "classnames";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
+import { useUpdateEffect } from "utils-hooks";
 import { SelectContext } from "./Context";
 import Dropdown from "./Dropdown";
 import useNnavigate from "./Hooks/useNnavigate";
 import useOptions from "./Hooks/useOptions";
 import useValue from "./Hooks/useValue";
 import useVisible from "./Hooks/useVisible";
-import { SelectProps, SelectFilter } from "./interface";
+import { SelectProps } from "./interface";
 import SelectInner from "./SelectInner/SelectInner";
 
-const useUpdateEffect: typeof useEffect = (effect, deps) => {
-    const isInitialMount = useRef(true);
-
-    useEffect(
-        isInitialMount.current
-            ? () => {
-                  isInitialMount.current = false;
-              }
-            : effect,
-        deps,
-    );
-};
-
 export function Select(props: SelectProps) {
-    const { prefixCls = "xy-select", className, style, children, multiple, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, tabIndex } = props;
+    const { prefixCls = "xy-select", className, style, children, multiple, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex } = props;
     const innerRef = useRef();
     const dropdownRef = useRef();
     const [search, setSearch] = useState("");
@@ -44,6 +32,13 @@ export function Select(props: SelectProps) {
         setEmpy(_empy);
     });
 
+    function searchHandle(val: string) {
+        setSearch(val);
+        if (onSearch) {
+            onSearch(val);
+        }
+    }
+
     return (
         <SelectContext.Provider value={{ value, filter, search, onOptionAdd, onOptionRemove, onSelect, focusValue, multiple, onUnSelect }}>
             <div className={classString} style={style} ref={innerRef}>
@@ -57,7 +52,7 @@ export function Select(props: SelectProps) {
                     onKeyDown={handleKeyPress}
                     tabIndex={tabIndex}
                     autoFocus={autoFocus}
-                    onChangeSearch={(val) => setSearch(val)}
+                    onChangeSearch={searchHandle}
                 />
             </div>
             <Dropdown prefixCls={prefixCls} empy={empy} visible={visible} placeholder={empyPlaceholder} dropdownRef={dropdownRef} scrollwrapRef={scrollwrapRef}>
