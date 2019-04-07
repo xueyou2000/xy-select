@@ -46,7 +46,7 @@
         "babel-loader": "^8.0.5",
         "hard-source-webpack-plugin": "^0.13.1",
         "highlight.js": "^9.15.6",
-        "quick-react-scripts": "^1.0.0",
+        "quick-react-scripts": "1.0.9",
         "react-docgen-typescript-loader": "^3.0.1",
         "react-docgen-typescript-webpack-plugin": "^1.1.0",
         "react-markdown": "^4.0.6",
@@ -65,5 +65,10 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/xueyou2000/xy-select.git"
+    },
+    "jest": {
+        "transformIgnorePatterns": [
+            "<rootDir>/node_modules/(?!(utils-hooks|utils-dom|xy-empty))"
+        ]
     }
 }

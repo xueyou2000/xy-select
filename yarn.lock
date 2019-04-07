@@ -6424,6 +6424,11 @@ jest-snapshot@^24.5.0:
     pretty-format "^24.5.0"
     semver "^5.5.0"
 
+jest-svg-transformer@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/jest-svg-transformer/download/jest-svg-transformer-1.0.0.tgz#e38884ca4cd8b2295cdfa2a0b24667920c3a8a6d"
+  integrity sha1-44iEykzYsilc36KgskZnkgw6im0=
+
 jest-util@^24.5.0:
   version "24.5.0"
   resolved "http://registry.npm.taobao.org/jest-util/download/jest-util-24.5.0.tgz#9d9cb06d9dcccc8e7cc76df91b1635025d7baa84"
@@ -8511,10 +8516,10 @@ querystringify@^2.0.0:
   resolved "http://registry.npm.taobao.org/querystringify/download/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha1-YOWl/WSn+L+k0qsu1v30yFutFU4=
 
-quick-react-scripts@^1.0.0:
-  version "1.0.8"
-  resolved "http://registry.npm.taobao.org/quick-react-scripts/download/quick-react-scripts-1.0.8.tgz#6a759752368fe16a54f04085f20544d7044003b6"
-  integrity sha1-anWXUjaP4WpU8ECF8gVE1wRAA7Y=
+quick-react-scripts@1.0.9:
+  version "1.0.9"
+  resolved "http://registry.npm.taobao.org/quick-react-scripts/download/quick-react-scripts-1.0.9.tgz#72ea6267d757d443191ee96404831122fb6c77de"
+  integrity sha1-cupiZ9dX1EMZHulkBIMRIvtsd94=
   dependencies:
     "@babel/core" "^7.3.4"
     "@babel/preset-env" "^7.3.4"
@@ -8531,6 +8536,7 @@ quick-react-scripts@^1.0.0:
     fs-extra "^7.0.1"
     identity-obj-proxy "^3.0.0"
     jest "^24.3.1"
+    jest-svg-transformer "^1.0.0"
     ora "^3.2.0"
     react-testing-library "^6.0.0"
     rollup "^1.6.0"
