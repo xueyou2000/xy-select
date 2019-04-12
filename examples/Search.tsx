@@ -5,7 +5,7 @@ export default function() {
     return (
         <div>
             <h1>搜索过滤</h1>
-            <Select defaultValue="customer" style={{ width: "180px" }} filter={true}>
+            <Select defaultValue="customer" style={{ width: "180px" }} searchMode={true} filter={false}>
                 <Option value={0}>是零</Option>
                 <Option value="pg">苹果</Option>
                 <Option disabled={true} value="xg">
@@ -31,7 +31,7 @@ export default function() {
             </Select>
 
             <h1>多选模式过滤</h1>
-            <Select multiple={true} defaultValue={["customer"]} style={{ width: "180px" }} filter={true}>
+            <Select multiple={true} defaultValue={["customer"]} style={{ width: "180px" }} searchMode={true} filter={false}>
                 <Option value={0}>是零</Option>
                 <Option value="pg">苹果</Option>
                 <Option disabled={true} value="xg">

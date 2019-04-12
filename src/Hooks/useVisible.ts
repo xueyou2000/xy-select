@@ -24,7 +24,7 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
         alignElement(dropdown, innerRef.current, {
             points: ["tl", "bl"],
             offset: [0, 4],
-            overflow: { adjustX: false, adjustY: true },
+            overflow: { adjustX: false, adjustY: true }
         });
     }
 
@@ -56,6 +56,8 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
     // 点击空白处则收起
     useOutsideClick([innerRef.current, dropdownRef.current], () => {
         setVisible(false);
+        // TODO AutpComplete 点击空白处， 搜索不应该为空
+        setSearch("");
     });
 
     return [visible, setSelectVisible, showVisible, align];

@@ -78,7 +78,7 @@ $ItemPrefixCls: "xy-select-item";
     }
 }
 
-.#{$SelectWarpPrefixCls}-single.#{$SelectWarpPrefixCls}-filter {
+.#{$SelectWarpPrefixCls}-single.#{$SelectWarpPrefixCls}-searchMode {
     .#{$ItemPrefixCls} {
         display: block;
         opacity: 1;
@@ -104,7 +104,7 @@ $ItemPrefixCls: "xy-select-item";
         }
     }
 }
-.#{$SelectWarpPrefixCls}-multiple.#{$SelectWarpPrefixCls}-filter {
+.#{$SelectWarpPrefixCls}-multiple.#{$SelectWarpPrefixCls}-searchMode {
     .#{$SelectWarpPrefixCls}-search--inline {
         position: static;
         float: left;

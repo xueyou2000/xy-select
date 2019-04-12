@@ -4,7 +4,7 @@ import { SelectInnerProps } from "../interface";
 import SelectedItem from "./SelectedItem";
 
 export function SelectInner(props: SelectInnerProps) {
-    const { prefixCls, selectedCfg, onClick, onKeyDown, visible, tabIndex = 0, filter, autoFocus, placeholder = "请选择", onChangeSearch } = props;
+    const { prefixCls, selectedCfg, onClick, onKeyDown, visible, tabIndex = 0, searchMode, autoFocus, custInput, placeholder = "请选择", onChangeSearch } = props;
     const innerprefixCls = `${prefixCls}-inner`;
     const context = useContext(SelectContext);
     const inputRef = useRef();
@@ -16,14 +16,12 @@ export function SelectInner(props: SelectInnerProps) {
     }
 
     function renderSearch() {
-        if (!filter) {
+        if (!searchMode) {
             return null;
         }
         return (
             <div className={`${prefixCls}-search--inline`}>
-                <div className={`${prefixCls}-search__wrap`}>
-                    <input ref={inputRef} className={`${prefixCls}-search__field`} autoComplete="off" type="text" onChange={searchChangeHandle} />
-                </div>
+                <div className={`${prefixCls}-search__wrap`}>{custInput || <input ref={inputRef} className={`${prefixCls}-search__field`} autoComplete="off" type="text" onChange={searchChangeHandle} />}</div>
             </div>
         );
     }

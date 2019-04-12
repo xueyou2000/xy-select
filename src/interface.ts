@@ -124,6 +124,10 @@ export interface SelectProps {
      */
     filter?: boolean | SelectFilter;
     /**
+     * 自定义Input搜索框
+     */
+    custInput?: React.ReactNode;
+    /**
      * 是否焦点
      */
     autoFocus?: boolean;
@@ -156,6 +160,10 @@ export interface SelectProps {
      * @description下拉内容为空时提示文本
      */
     empyPlaceholder?: string;
+    /**
+     * 是否搜索模式
+     */
+    searchMode?: boolean;
 }
 
 export interface SelectContextState {
@@ -225,9 +233,9 @@ export interface SelectInnerProps {
      */
     prefixCls?: string;
     /**
-     * 内容
+     * 自定义Input搜索框
      */
-    children?: React.ReactNode;
+    custInput?: React.ReactNode;
     /**
      * 是否焦点
      */
@@ -241,9 +249,9 @@ export interface SelectInnerProps {
      */
     placeholder?: React.ReactNode;
     /**
-     * 过滤option
+     * 是否搜索模式
      */
-    filter?: boolean | SelectFilter;
+    searchMode?: boolean;
     /**
      * 已经选中的OptionConfig配置集合
      */

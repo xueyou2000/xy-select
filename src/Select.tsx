@@ -11,7 +11,7 @@ import { SelectProps } from "./interface";
 import SelectInner from "./SelectInner/SelectInner";
 
 export function Select(props: SelectProps) {
-    const { prefixCls = "xy-select", className, style, children, multiple, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex } = props;
+    const { prefixCls = "xy-select", className, style, children, multiple, custInput, searchMode = false, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex } = props;
     const innerRef = useRef();
     const dropdownRef = useRef();
     const [search, setSearch] = useState("");
@@ -23,7 +23,8 @@ export function Select(props: SelectProps) {
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-visible`]: visible,
         [`${prefixCls}-filter`]: !!filter,
-        [`${prefixCls}-hide-item`]: search !== "",
+        [`${prefixCls}-searchMode`]: searchMode,
+        [`${prefixCls}-hide-item`]: search !== ""
     });
     const [empy, setEmpy] = useState(false);
 
@@ -44,7 +45,8 @@ export function Select(props: SelectProps) {
             <div className={classString} style={style} ref={innerRef}>
                 <SelectInner
                     visible={visible}
-                    filter={filter}
+                    custInput={custInput}
+                    searchMode={searchMode}
                     prefixCls={prefixCls}
                     selectedCfg={getOptionCfg(value)}
                     placeholder={placeholder}
