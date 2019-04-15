@@ -1,7 +1,7 @@
 $SelectWarpPrefixCls: "xy-select";
-$InnerWarpPrefixCls: "xy-select-inner";
+$BoxWarpPrefixCls: "xy-select-box";
 
-.#{$InnerWarpPrefixCls} {
+.#{$BoxWarpPrefixCls} {
     position: relative;
     display: block;
     box-sizing: border-box;
@@ -19,6 +19,9 @@ $InnerWarpPrefixCls: "xy-select-inner";
     position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
 }
 .#{$SelectWarpPrefixCls}-search__wrap {
     position: relative;
@@ -36,7 +39,7 @@ $InnerWarpPrefixCls: "xy-select-inner";
     border-radius: 4px;
     outline: 0;
 }
-.#{$InnerWarpPrefixCls}__rendered {
+.#{$BoxWarpPrefixCls}__rendered {
     position: relative;
     display: block;
     margin-right: 11px;
@@ -56,27 +59,19 @@ $InnerWarpPrefixCls: "xy-select-inner";
     }
 
     &:after {
-        display: inline-block;
-        width: 0;
-        visibility: hidden;
-        pointer-events: none;
+        display: block;
         content: ".";
+        clear: both;
+        line-height: 0;
+        visibility: hidden;
     }
 }
 
-.#{$InnerWarpPrefixCls}__placeholder {
+.#{$BoxWarpPrefixCls}__placeholder {
     color: #bfbfbf;
-
-    &:after {
-        display: inline-block;
-        width: 0;
-        visibility: hidden;
-        pointer-events: none;
-        content: ".";
-    }
 }
 
-.#{$InnerWarpPrefixCls}__arrow {
+.#{$BoxWarpPrefixCls}__arrow {
     display: inline-block;
     text-align: center;
     text-transform: none;
@@ -97,9 +92,9 @@ $InnerWarpPrefixCls: "xy-select-inner";
     }
 }
 
-.#{$InnerWarpPrefixCls}:focus,
-.#{$InnerWarpPrefixCls}:hover,
-.#{$SelectWarpPrefixCls}-visible .#{$InnerWarpPrefixCls} {
+.#{$BoxWarpPrefixCls}:focus,
+.#{$BoxWarpPrefixCls}:hover,
+.#{$SelectWarpPrefixCls}-visible .#{$BoxWarpPrefixCls} {
     border-color: #40a9ff;
     border-right-width: 1px !important;
     outline: 0;

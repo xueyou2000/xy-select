@@ -1,6 +1,6 @@
 export type SelectedValue = any | any[];
 
-export type SelectFilter = (search: string, cfgs: OptionConfig | OptionConfig[]) => boolean;
+export type SelectFilter = (cfg: OptionConfig, search: string) => boolean;
 
 export interface OptionProps {
     /**
@@ -54,7 +54,7 @@ export interface OptGroupProps {
     /**
      * 内容
      */
-    children?: React.ReactNode;
+    children: React.ReactNode | null;
     /**
      * 组标签
      */
@@ -67,21 +67,21 @@ export interface DropdownProps {
      */
     prefixCls?: string;
     /**
-     * 内容
+     * options内容
      */
-    children: React.ReactNode;
+    children?: React.ReactNode;
     /**
      * 是否可视
      */
-    visible: boolean;
+    visible?: boolean;
     /**
-     * 是否显示空
+     * 空内容, 显示占位符
      */
-    empy?: boolean;
+    empty?: boolean;
     /**
      * 空内容占位符文本
      */
-    placeholder?: string;
+    placeholder?: React.ReactNode;
     /**
      * scrollwrapRef
      * @description 暴露出包含滚动条的dom元素
@@ -122,7 +122,7 @@ export interface SelectProps {
     /**
      * 是否过滤option
      */
-    filter?: boolean | SelectFilter;
+    filter?: SelectFilter;
     /**
      * 自定义Input搜索框
      */
@@ -178,7 +178,7 @@ export interface SelectContextState {
     /**
      * 过滤option
      */
-    filter?: boolean | SelectFilter;
+    filter?: SelectFilter;
     /**
      * 搜索值
      */
@@ -221,45 +221,53 @@ export interface OptionConfig {
     /**
      * 是否过滤
      */
-    filterd: boolean;
+    filtered: boolean;
 }
 
 /**
  * Select选择器
  */
-export interface SelectInnerProps {
+export interface SelectBoxProps {
     /**
      * 附加类名
      */
     prefixCls?: string;
     /**
-     * 自定义Input搜索框
+     * 根节点的附加类名
      */
-    custInput?: React.ReactNode;
+    className?: string;
+    /**
+     * 内联样式
+     */
+    style?: React.CSSProperties;
     /**
      * 是否焦点
      */
     autoFocus?: boolean;
     /**
-     * 是否可视
+     * tabIndex
      */
-    visible?: boolean;
+    tabIndex?: number;
+    /**
+     * 是否多选
+     */
+    multiple?: boolean;
     /**
      * 占位符文本
      */
     placeholder?: React.ReactNode;
     /**
-     * 是否搜索模式
+     * 内容
      */
-    searchMode?: boolean;
+    children: React.ReactNode;
     /**
      * 已经选中的OptionConfig配置集合
      */
     selectedCfg?: OptionConfig | OptionConfig[];
     /**
-     * tabIndex
+     * 搜索输入框节点
      */
-    tabIndex?: number;
+    searchContent?: React.ReactNode;
     /**
      * 点击事件
      */
@@ -268,13 +276,56 @@ export interface SelectInnerProps {
      * 键盘事件
      */
     onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
-    /**
-     * 搜索回调
-     */
-    onChangeSearch?: (search: string) => void;
 }
 
-export interface SelectItem {
+/**
+ * Select选择器内容
+ */
+export interface SelectBoxContentProps {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 已经选中的OptionConfig配置集合
+     */
+    selectedCfg?: OptionConfig | OptionConfig[];
+}
+
+/**
+ * Select搜索输入框
+ */
+export interface SelectBoxSearchProps {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * Select下拉列表是否可视
+     */
+    visible?: boolean;
+    /**
+     * 搜索输入框离开焦点, 是否清空输入框内容
+     */
+    blurClear?: boolean;
+    /**
+     * 搜索内容
+     */
+    search?: string;
+    /**
+     * 默认搜索内容
+     */
+    defaultSearch?: string;
+    /**
+     * 搜索内容改变
+     */
+    onSearchChange?: (search: string) => void;
+}
+
+/**
+ * Select选中项
+ */
+export interface SelectItemProps {
     /**
      * 附加类名
      */
@@ -295,8 +346,4 @@ export interface SelectItem {
      * 值
      */
     value: string | number;
-    /**
-     * tag风格
-     */
-    tag?: boolean;
 }

@@ -17,7 +17,7 @@ export default function useNnavigate(
     value: any,
     selectValue: (val: any) => void,
     visible: boolean,
-    setVisible: (vis: boolean, isAlign?: boolean) => void,
+    setVisible: (vis: boolean, isAlign?: boolean) => void
 ): [any, (e: React.KeyboardEvent<HTMLElement>) => void, React.MutableRefObject<any>] {
     const [focusValue, setFocusValue] = useState(value && value.length > 0 ? value[0] : value);
     const scrollwrapRef = useRef();
@@ -38,11 +38,11 @@ export default function useNnavigate(
         },
         onPrev: () => {
             setNextFocus();
-        },
+        }
     });
 
     function setNextFocus(isnext = true) {
-        const opts = options.current.filter((x) => !x.disabled && !x.filterd);
+        const opts = options.current.filter((x) => !x.disabled && !x.filtered);
         let next = focusValue;
         const i = opts.findIndex((cfg) => cfg.value === focusValue);
         if (i === -1) {
