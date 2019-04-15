@@ -7,7 +7,7 @@ import useNnavigate from "./Hooks/useNnavigate";
 import useOptions from "./Hooks/useOptions";
 import useValue from "./Hooks/useValue";
 import useVisible from "./Hooks/useVisible";
-import { SelectProps } from "./interface";
+import { SelectProps, SelectedValue } from "./interface";
 import SelectInner from "./SelectInner/SelectInner";
 
 export function Select(props: SelectProps) {

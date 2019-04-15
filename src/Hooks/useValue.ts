@@ -25,7 +25,7 @@ export default function useValue(props: SelectProps, setVisible: (v: boolean) =>
      * 处理受控组件和非受控组件
      * @param value
      */
-    function setSelectedValue(value: any | any[]) {
+    function setSelectedValue(value: SelectedValue) {
         if (!isControll) {
             setValue(value);
         }

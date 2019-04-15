@@ -2,7 +2,7 @@ import { OptionConfig } from "@/interface";
 import { useRef, useState, useEffect } from "react";
 import { useMount } from "utils-hooks";
 
-type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, (cfg: OptionConfig) => void, (value: string | number) => void, (val: any) => OptionConfig | OptionConfig[]];
+type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, (cfg: OptionConfig) => void, (value: string | number) => void, (val: any) => OptionConfig | OptionConfig[], React.MutableRefObject<Map<any, OptionConfig>>];
 
 /**
  * 管理select内声明的option
@@ -14,12 +14,14 @@ export default function useOptions(multiple: boolean): UseOptionsReturn {
     const options = useRef<OptionConfig[]>([]);
     const initRef = useRef(false);
     const [_, updateSelectedCfg] = useState(0);
+    const cacheSelectCfg = useRef(new Map<any, OptionConfig>());
 
     /**
      * 添加option
      * @param cfg
      */
     function onOptionAdd(cfg: OptionConfig) {
+        cacheSelectCfg.current.set(cfg.value, cfg);
         if (!options.current.some((x) => x.value === cfg.value)) {
             options.current.push(cfg);
         }
@@ -43,14 +45,14 @@ export default function useOptions(multiple: boolean): UseOptionsReturn {
         if (multiple) {
             const cfgs = [];
             value.forEach((val) => {
-                var cfg = options.current.find((cfg) => cfg.value === val);
+                var cfg = cacheSelectCfg.current.get(val);
                 if (cfg) {
                     cfgs.push(cfg);
                 }
             });
             return cfgs;
         } else {
-            return options.current.find((x) => x.value === value);
+            return cacheSelectCfg.current.get(value);
         }
     }
 
@@ -60,5 +62,5 @@ export default function useOptions(multiple: boolean): UseOptionsReturn {
         updateSelectedCfg(1);
     });
 
-    return [options, onOptionAdd, onOptionRemove, getOptionCfg];
+    return [options, onOptionAdd, onOptionRemove, getOptionCfg, cacheSelectCfg];
 }

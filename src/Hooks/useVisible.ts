@@ -23,8 +23,8 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
         dropdown.style.width = element.clientWidth + "px";
         alignElement(dropdown, innerRef.current, {
             points: ["tl", "bl"],
-            offset: [0, 4],
-            overflow: { adjustX: false, adjustY: true }
+            offset: [0, 5],
+            overflow: { flip: true, adjust: false }
         });
     }
 

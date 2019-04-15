@@ -10795,10 +10795,10 @@ utila@^0.4.0, utila@~0.4:
   resolved "http://registry.npm.taobao.org/utila/download/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
   integrity sha1-ihagXURWV6Oupe7MWxKk+lN5dyw=
 
-utils-dom@0.0.53:
-  version "0.0.53"
-  resolved "http://registry.npm.taobao.org/utils-dom/download/utils-dom-0.0.53.tgz#c20d0b96081ba4f75be867ee1d1fd1100690368e"
-  integrity sha1-wg0LlggbpPdb6GfuHR/REAaQNo4=
+utils-dom@0.0.56:
+  version "0.0.56"
+  resolved "http://registry.npm.taobao.org/utils-dom/download/utils-dom-0.0.56.tgz#ca5e43660cddace458f6d76ca86cb590f5ee59ad"
+  integrity sha1-yl5DZgzdrORY9tdsqGy1kPXuWa0=
 
 utils-hooks@0.0.57:
   version "0.0.57"
