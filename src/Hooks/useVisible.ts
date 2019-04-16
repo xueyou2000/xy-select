@@ -10,7 +10,7 @@ type UseVisibleReturn = [boolean, (v: boolean, isAlign?: boolean) => void, () =>
  * @param dropdownRef   select下拉列表
  * @param disabled  是否禁用
  */
-export default function useVisible(innerRef: React.MutableRefObject<any>, dropdownRef: React.MutableRefObject<any>, disabled: boolean, setSearch: (val: string) => void): UseVisibleReturn {
+export default function useVisible(innerRef: React.MutableRefObject<any>, dropdownRef: React.MutableRefObject<any>, disabled: boolean): UseVisibleReturn {
     const [visible, setVisible] = useState(false);
 
     function align() {
@@ -21,6 +21,7 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
         }
 
         dropdown.style.width = element.clientWidth + "px";
+        dropdown.style.height = null;
         alignElement(dropdown, innerRef.current, {
             points: ["tl", "bl"],
             offset: [0, 5],
@@ -30,6 +31,9 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
 
     function setSelectVisible(visible: boolean, isAlign?: boolean) {
         const element = innerRef.current as HTMLElement;
+        if (disabled) {
+            return;
+        }
         if (visible) {
             if (isAlign) {
                 align();
@@ -37,9 +41,8 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
             setVisible(true);
         } else {
             setVisible(false);
-            setSearch("");
             if (element) {
-                const selectInner = element.querySelector(".xy-select-inner") as HTMLElement;
+                const selectInner = element.querySelector(".xy-select-box") as HTMLElement;
                 selectInner.focus();
             }
         }
@@ -56,8 +59,6 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
     // 点击空白处则收起
     useOutsideClick([innerRef.current, dropdownRef.current], () => {
         setVisible(false);
-        // TODO AutpComplete 点击空白处， 搜索不应该为空
-        setSearch("");
     });
 
     return [visible, setSelectVisible, showVisible, align];
