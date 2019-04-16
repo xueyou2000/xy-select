@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.41 (Tue Apr 16 2019)
+
+-   导出`useNnavigate`
+
 ## 0.0.4 (Tue Apr 16 2019)
 
 -   优化代码实现, 更加细的分离组件

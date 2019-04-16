@@ -7,5 +7,6 @@ import { SelectContext } from "./Context";
 import { SelectLocal } from "./Local";
 import useOptions from "./Hooks/useOptions";
 import useNnavigate from "./Hooks/useNnavigate";
+import useVisible from "./Hooks/useVisible";
 
-export { Option, OptGroup, Select, Dropdown, SelectSearch, SelectContext, SelectLocal, useOptions, useNnavigate };
+export { Option, OptGroup, Select, Dropdown, SelectSearch, SelectContext, SelectLocal, useOptions, useNnavigate, useVisible };

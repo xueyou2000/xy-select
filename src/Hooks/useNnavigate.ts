@@ -8,7 +8,6 @@ import { CreateNnavigateHandle, locateElement } from "utils-dom";
  * @param {React.MutableRefObject<OptionConfig[]>} options  options配置集合
  * @param {*} value 当前选中值
  * @param {(val: any) => void} selectValue 设置选中值
- * @param {boolean} visible 是否显示下拉列表
  * @param {(vis: boolean, isAlign?: boolean) => void} setVisible    设置下拉列表是否显示
  * @returns {[any, (e: React.KeyboardEvent<HTMLElement>) => void, React.MutableRefObject<any>]}
  */
