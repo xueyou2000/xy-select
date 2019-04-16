@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.43 (Tue Apr 16 2019)
+
+-   `useVisible`修复隐藏时设置焦点元素
+
 ## 0.0.42 (Tue Apr 16 2019)
 
 -   `useOptions`导出`cacheSelectCfg`

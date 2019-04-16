@@ -17,7 +17,7 @@ export function Select(props: SelectProps) {
     const innerRef = useRef();
     const dropdownRef = useRef();
     const [search, setSearch] = useState("");
-    const [visible, setVisible, toggleVisible, align] = useVisible(innerRef, dropdownRef, disabled);
+    const [visible, setVisible, toggleVisible, align] = useVisible(innerRef, dropdownRef, disabled, `.${prefixCls}-box`);
     const [value, onSelect, onUnSelect] = useValue(props, setVisible, align);
     const [options, onOptionAdd, onOptionRemove, getOptionCfg] = useOptions(multiple);
     const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible);

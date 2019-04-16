@@ -9,8 +9,9 @@ type UseVisibleReturn = [boolean, (v: boolean, isAlign?: boolean) => void, () =>
  * @param innerRef  select选择框
  * @param dropdownRef   select下拉列表
  * @param disabled  是否禁用
+ * @param blurClassSelector 关闭时需要设置焦点的选择器
  */
-export default function useVisible(innerRef: React.MutableRefObject<any>, dropdownRef: React.MutableRefObject<any>, disabled: boolean): UseVisibleReturn {
+export default function useVisible(innerRef: React.MutableRefObject<any>, dropdownRef: React.MutableRefObject<any>, disabled: boolean, blurClassSelector?: string): UseVisibleReturn {
     const [visible, setVisible] = useState(false);
 
     function align() {
@@ -41,9 +42,11 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
             setVisible(true);
         } else {
             setVisible(false);
-            if (element) {
-                const selectInner = element.querySelector(".xy-select-box") as HTMLElement;
-                selectInner.focus();
+            if (element && blurClassSelector) {
+                const selectInner = element.querySelector(blurClassSelector) as HTMLElement;
+                if (selectInner) {
+                    selectInner.focus();
+                }
             }
         }
     }
