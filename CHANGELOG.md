@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.42 (Tue Apr 16 2019)
+
+-   `useOptions`导出`cacheSelectCfg`
+
 ## 0.0.41 (Tue Apr 16 2019)
 
 -   导出`useNnavigate`
