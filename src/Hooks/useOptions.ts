@@ -41,7 +41,7 @@ export default function useOptions(multiple: boolean): UseOptionsReturn {
      * @param {string} [prop='value']
      * @returns {(OptionConfig | OptionConfig[])}
      */
-    function getOptionCfg(value: any, prop: string = "value"): OptionConfig | OptionConfig[] {
+    function getOptionCfg(value: any): OptionConfig | OptionConfig[] {
         if (multiple) {
             const cfgs = [];
             value.forEach((val) => {

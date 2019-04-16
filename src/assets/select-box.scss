@@ -50,6 +50,13 @@ $BoxWarpPrefixCls: "xy-select-box";
     & > ul {
         margin: 0;
         padding: 0;
+        &:after {
+            display: block;
+            content: ".";
+            clear: both;
+            line-height: 0;
+            visibility: hidden;
+        }
     }
 
     & > ul > li {

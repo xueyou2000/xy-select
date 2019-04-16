@@ -54,7 +54,7 @@ export interface OptGroupProps {
     /**
      * 内容
      */
-    children: React.ReactNode | null;
+    children?: React.ReactNode;
     /**
      * 组标签
      */
@@ -86,12 +86,12 @@ export interface DropdownProps {
      * scrollwrapRef
      * @description 暴露出包含滚动条的dom元素
      */
-    scrollwrapRef: React.MutableRefObject<any>;
+    scrollwrapRef?: React.MutableRefObject<any>;
     /**
      * dropdownRef
      * @description 暴露出dropdown跟节点的dom元素
      */
-    dropdownRef: React.MutableRefObject<any>;
+    dropdownRef?: React.MutableRefObject<any>;
 }
 
 export interface SelectProps {
@@ -123,10 +123,6 @@ export interface SelectProps {
      * 是否过滤option
      */
     filter?: SelectFilter;
-    /**
-     * 自定义Input搜索框
-     */
-    custInput?: React.ReactNode;
     /**
      * 是否焦点
      */

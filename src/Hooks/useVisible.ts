@@ -31,6 +31,9 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
 
     function setSelectVisible(visible: boolean, isAlign?: boolean) {
         const element = innerRef.current as HTMLElement;
+        if (disabled) {
+            return;
+        }
         if (visible) {
             if (isAlign) {
                 align();

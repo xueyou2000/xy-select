@@ -40,6 +40,10 @@ $ItemPrefixCls: "xy-select-item";
         }
     }
 
+    .#{$BoxWarpPrefixCls}__placeholder {
+        padding: 0 10px;
+    }
+
     .#{$ItemPrefixCls} {
         animation: SelectItemIn 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
         animation-fill-mode: "forwards";
