@@ -10,7 +10,7 @@ type UseValueReturn = [any, (val: string | number) => void, (val: string | numbe
  * @param setVisible    设置可视状态
  * @param align   对齐函数
  */
-export default function useValue(props: SelectProps, setVisible: (v: boolean) => void, align: Function): UseValueReturn {
+export default function useValue(props: SelectProps, setVisible: (v: boolean, isAlign?: boolean) => void, align: Function): UseValueReturn {
     const { multiple, disabled, onChange } = props;
     const [value, setValue, isControll] = useControll<SelectedValue>(props, "value", "defaultValue", multiple ? [] : null);
 

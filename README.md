@@ -25,19 +25,32 @@
 
 ```sh
 # npm
-npm install --save xy-select shallowequal
+npm install --save xy-select
 
 # yarn
-yarn add xy-select shallowequal
+yarn add xy-select
 ```
 
 ## 使用
 
-```ts
+```tsx
 import React from "react";
 import ReactDOM from "react-dom";
-import XySelect from "xy-select";
-ReactDOM.render(<XySelect />, container);
+import { Select, OptGroup, Option } from "xy-select";
+ReactDOM.render(
+    <Select>
+        <OptGroup label="编程语言">
+            <Option value="C">C</Option>
+            <Option value="C++">C++</Option>
+            <Option value="Object-C">Object-C</Option>
+            <Option value="JavaScript">JavaScript</Option>
+            <Option value="C#">C#</Option>
+            <Option value="VB">VB</Option>
+            <Option value="GO">GO</Option>
+        </OptGroup>
+    </Select>,
+    container
+);
 ```
 
 ## 开发

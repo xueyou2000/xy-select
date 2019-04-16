@@ -1,8 +1,8 @@
-import { OptionConfig } from "@/interface";
+import { OptionConfig } from "../interface";
 import { useRef, useState, useEffect } from "react";
 import { useMount } from "utils-hooks";
 
-type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, (cfg: OptionConfig) => void, (value: string | number) => void, (val: any) => OptionConfig | OptionConfig[], React.MutableRefObject<Map<any, OptionConfig>>];
+type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, (cfg: OptionConfig) => void, (value: string | number) => void, (val: any) => OptionConfig | OptionConfig[]];
 
 /**
  * 管理select内声明的option
@@ -62,5 +62,5 @@ export default function useOptions(multiple: boolean): UseOptionsReturn {
         updateSelectedCfg(1);
     });
 
-    return [options, onOptionAdd, onOptionRemove, getOptionCfg, cacheSelectCfg];
+    return [options, onOptionAdd, onOptionRemove, getOptionCfg];
 }

@@ -20,7 +20,7 @@ export function Select(props: SelectProps) {
     const [visible, setVisible, toggleVisible, align] = useVisible(innerRef, dropdownRef, disabled);
     const [value, onSelect, onUnSelect] = useValue(props, setVisible, align);
     const [options, onOptionAdd, onOptionRemove, getOptionCfg] = useOptions(multiple);
-    const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, visible, setVisible);
+    const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible);
     const classString = classNames(prefixCls, className, `${prefixCls}-${multiple ? "multiple" : "single"}`, {
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-visible`]: visible,
@@ -29,11 +29,11 @@ export function Select(props: SelectProps) {
     });
     const selectedCfg = getOptionCfg(value);
 
-    const [empy, setEmpy] = useState(false);
+    const [empty, setEmpty] = useState(false);
 
     useUpdateEffect(() => {
         const _empy = options.current.filter((x) => !x.disabled && !x.filtered).length === 0 && search !== "";
-        setEmpy(_empy);
+        setEmpty(_empy);
     });
 
     function searchHandle(val: string) {
@@ -60,7 +60,7 @@ export function Select(props: SelectProps) {
                     <SelectBoxContent prefixCls={prefixCls} selectedCfg={selectedCfg} />
                 </SelectBox>
             </div>
-            <Dropdown prefixCls={prefixCls} empty={empy} visible={visible} placeholder={empyPlaceholder} dropdownRef={dropdownRef} scrollwrapRef={scrollwrapRef}>
+            <Dropdown prefixCls={prefixCls} empty={empty} visible={visible} placeholder={empyPlaceholder} dropdownRef={dropdownRef} scrollwrapRef={scrollwrapRef}>
                 {children}
             </Dropdown>
         </SelectContext.Provider>

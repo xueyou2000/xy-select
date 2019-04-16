@@ -1,4 +1,4 @@
-import { OptionConfig } from "@/interface";
+import { OptionConfig } from "../interface";
 import { useRef, useState, useCallback } from "react";
 import { CreateNnavigateHandle, locateElement } from "utils-dom";
 
@@ -16,7 +16,6 @@ export default function useNnavigate(
     options: React.MutableRefObject<OptionConfig[]>,
     value: any,
     selectValue: (val: any) => void,
-    visible: boolean,
     setVisible: (vis: boolean, isAlign?: boolean) => void
 ): [any, (e: React.KeyboardEvent<HTMLElement>) => void, React.MutableRefObject<any>] {
     const [focusValue, setFocusValue] = useState(value && value.length > 0 ? value[0] : value);
