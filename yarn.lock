@@ -11079,10 +11079,10 @@ utils-dom@0.0.56:
   resolved "http://registry.npm.taobao.org/utils-dom/download/utils-dom-0.0.56.tgz#ca5e43660cddace458f6d76ca86cb590f5ee59ad"
   integrity sha1-yl5DZgzdrORY9tdsqGy1kPXuWa0=
 
-utils-hooks@0.0.57:
-  version "0.0.57"
-  resolved "http://registry.npm.taobao.org/utils-hooks/download/utils-hooks-0.0.57.tgz#1d86f9d3e341c319b5da1bf17ac923e3cfd6b9fa"
-  integrity sha1-HYb50+NBwxm12hvxeskj48/Wufo=
+utils-hooks@0.0.58:
+  version "0.0.58"
+  resolved "http://registry.npm.taobao.org/utils-hooks/download/utils-hooks-0.0.58.tgz#2187df6024930f7edbd040a50f24023ab86908ed"
+  integrity sha1-IYffYCSTD37b0EClDyQCOrhpCO0=
 
 utils-merge@1.0.1:
   version "1.0.1"

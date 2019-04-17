@@ -11,7 +11,7 @@ type UseVisibleReturn = [boolean, (v: boolean, isAlign?: boolean) => void, () =>
  * @param disabled  是否禁用
  * @param blurClassSelector 关闭时需要设置焦点的选择器
  */
-export default function useVisible(innerRef: React.MutableRefObject<any>, dropdownRef: React.MutableRefObject<any>, disabled: boolean, blurClassSelector?: string): UseVisibleReturn {
+export default function useVisible(innerRef: React.MutableRefObject<any>, dropdownRef: React.MutableRefObject<any>, disabled: boolean, stretch: boolean, blurClassSelector?: string): UseVisibleReturn {
     const [visible, setVisible] = useState(false);
 
     function align() {
@@ -21,7 +21,9 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
             return;
         }
 
-        dropdown.style.width = element.clientWidth + "px";
+        if (stretch) {
+            dropdown.style.width = element.clientWidth + "px";
+        }
         dropdown.style.height = null;
         alignElement(dropdown, innerRef.current, {
             points: ["tl", "bl"],

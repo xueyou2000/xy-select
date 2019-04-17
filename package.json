@@ -1,6 +1,6 @@
 {
     "name": "xy-select",
-    "version": "0.0.43",
+    "version": "0.0.44",
     "description": "基于React的基础组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",
@@ -58,7 +58,7 @@
         "react": "^16.8.2",
         "react-dom": "^16.8.2",
         "utils-dom": "0.0.56",
-        "utils-hooks": "0.0.57",
+        "utils-hooks": "0.0.58",
         "xy-empty": "^0.0.2"
     },
     "repository": {

@@ -71,6 +71,10 @@ export interface DropdownProps {
      */
     children?: React.ReactNode;
     /**
+     * 弹出内容类名
+     */
+    popupClassName?: string;
+    /**
      * 是否可视
      */
     visible?: boolean;
@@ -139,6 +143,14 @@ export interface SelectProps {
      * 是否多选
      */
     multiple?: boolean;
+    /**
+     * 弹出内容类名
+     */
+    popupClassName?: string;
+    /**
+     * 是否宽度与目标宽度对齐
+     */
+    stretch?: boolean;
     /**
      * 占位符文本
      */

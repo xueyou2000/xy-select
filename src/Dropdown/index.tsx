@@ -14,9 +14,9 @@ import { DropdownProps } from "../interface";
  *   - 展示空内容占位符
  */
 export function Dropdown(props: DropdownProps) {
-    const { prefixCls, children, visible = false, placeholder, empty, dropdownRef, scrollwrapRef } = props;
+    const { prefixCls, children, visible = false, popupClassName, placeholder, empty, dropdownRef, scrollwrapRef } = props;
     const menuRef = useRef();
-    const [renderPortal] = usePortal();
+    const [renderPortal] = usePortal(popupClassName);
     const [ref, state] = useTranstion(visible, true);
     const opening = state.indexOf("en") !== -1;
     const dropdownPrefixCls = `${prefixCls}-dropdown`;

@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.0.44 (Wed Apr 17 2019)
+
+-   增加`popupClassName`属性
+-   增加`stretch`属性
+
 ## 0.0.43 (Tue Apr 16 2019)
 
 -   `useVisible`修复隐藏时设置焦点元素

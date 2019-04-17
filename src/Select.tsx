@@ -13,11 +13,11 @@ import SelectBoxContent from "./SelectInner/SelectBoxContent";
 import SelectSearch from "./SelectInner/SelectSearch";
 
 export function Select(props: SelectProps) {
-    const { prefixCls = "xy-select", className, style, children, multiple, searchMode = false, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex } = props;
+    const { prefixCls = "xy-select", className, style, children, multiple, stretch = true, popupClassName, searchMode = false, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex } = props;
     const innerRef = useRef();
     const dropdownRef = useRef();
     const [search, setSearch] = useState("");
-    const [visible, setVisible, toggleVisible, align] = useVisible(innerRef, dropdownRef, disabled, `.${prefixCls}-box`);
+    const [visible, setVisible, toggleVisible, align] = useVisible(innerRef, dropdownRef, disabled, stretch, `.${prefixCls}-box`);
     const [value, onSelect, onUnSelect] = useValue(props, setVisible, align);
     const [options, onOptionAdd, onOptionRemove, getOptionCfg] = useOptions(multiple);
     const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible);
@@ -60,7 +60,7 @@ export function Select(props: SelectProps) {
                     <SelectBoxContent prefixCls={prefixCls} selectedCfg={selectedCfg} />
                 </SelectBox>
             </div>
-            <Dropdown prefixCls={prefixCls} empty={empty} visible={visible} placeholder={empyPlaceholder} dropdownRef={dropdownRef} scrollwrapRef={scrollwrapRef}>
+            <Dropdown popupClassName={popupClassName} prefixCls={prefixCls} empty={empty} visible={visible} placeholder={empyPlaceholder} dropdownRef={dropdownRef} scrollwrapRef={scrollwrapRef}>
                 {children}
             </Dropdown>
         </SelectContext.Provider>
