@@ -70,7 +70,7 @@ describe("Select", () => {
         expect(onSearch.mock.calls[2][0]).toBe("g");
     });
 
-    test("multiple", (done) => {
+    test("multiple", () => {
         const wrapper = render(
             <Select defaultValue={["c"]} multiple={true}>
                 <Option>a</Option>
@@ -84,24 +84,20 @@ describe("Select", () => {
 
         let items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");
         expect([].map.call(items, (x) => x.textContent)).toEqual(["c"]);
-
+        jest.useFakeTimers();
         const _items = wrapper.container.querySelectorAll(".xy-select-item");
         // 点击后要模拟300毫秒后才生效， 因为要等待关闭动画
         fireEvent.click(_items[0].querySelector(".xy-select-item__remove"));
+        jest.advanceTimersByTime(320);
+        items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");
+        expect(items.length).toEqual(0);
 
-        setTimeout(() => {
-            items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");
-            expect(items.length).toEqual(0);
+        fireEvent.click(document.body.querySelector('[data-value="b"]'));
+        items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");
+        expect([].map.call(items, (x) => x.textContent)).toEqual(["b"]);
 
-            fireEvent.click(document.body.querySelector('[data-value="b"]'));
-            items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");
-            expect([].map.call(items, (x) => x.textContent)).toEqual(["b"]);
-
-            fireEvent.click(document.body.querySelector('[data-value="c1"]'));
-            items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");
-            expect([].map.call(items, (x) => x.textContent)).toEqual(["b", "c1"]);
-
-            done();
-        }, 400);
+        fireEvent.click(document.body.querySelector('[data-value="c1"]'));
+        items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");
+        expect([].map.call(items, (x) => x.textContent)).toEqual(["b", "c1"]);
     });
 });
