@@ -29,7 +29,7 @@ export function Dropdown(props: DropdownProps) {
 
     function renderContent() {
         if (empty) {
-            return <Empty description={placeholder}>{children}</Empty>;
+            return <Empty description={placeholder} />;
         } else {
             return children || <Empty description={placeholder} />;
         }

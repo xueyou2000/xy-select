@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.5 (Wed Apr 17 2019)
+
+-   修复`OptGroup`在内部 option 全部不可用(被禁用，过滤)时, 隐藏分组
+
 ## 0.0.44 (Wed Apr 17 2019)
 
 -   增加`popupClassName`属性

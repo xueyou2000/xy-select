@@ -43,7 +43,7 @@ export default function useNnavigate(
         const opts = options.current.filter((x) => !x.disabled && !x.filtered);
         let next = focusValue;
         const i = opts.findIndex((cfg) => cfg.value === focusValue);
-        if (i === -1) {
+        if (i === -1 && opts.length > 0) {
             next = opts[0].value;
         } else if (isnext ? i - 1 >= 0 : i + 1 < opts.length) {
             next = isnext ? opts[i - 1].value : opts[i + 1].value;

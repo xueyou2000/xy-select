@@ -196,6 +196,10 @@ export interface SelectContextState {
      */
     multiple?: boolean;
     /**
+     * 当前options集合
+     */
+    options?: React.MutableRefObject<OptionConfig[]>;
+    /**
      * option选中事件
      */
     onSelect?: (val: string | number) => void;
@@ -225,11 +229,11 @@ export interface OptionConfig {
     /**
      * 是否禁用
      */
-    disabled: boolean;
+    disabled?: boolean;
     /**
      * 是否过滤
      */
-    filtered: boolean;
+    filtered?: boolean;
 }
 
 /**

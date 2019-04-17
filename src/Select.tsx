@@ -44,7 +44,7 @@ export function Select(props: SelectProps) {
     }
 
     return (
-        <SelectContext.Provider value={{ value, filter, search, onOptionAdd, onOptionRemove, onSelect, focusValue, multiple, onUnSelect }}>
+        <SelectContext.Provider value={{ value, filter, search, options, onOptionAdd, onOptionRemove, onSelect, focusValue, multiple, onUnSelect }}>
             <div className={classString} style={style} ref={innerRef}>
                 <SelectBox
                     prefixCls={prefixCls}
