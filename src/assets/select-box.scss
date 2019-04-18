@@ -76,6 +76,7 @@ $BoxWarpPrefixCls: "xy-select-box";
 
 .#{$BoxWarpPrefixCls}__placeholder {
     color: #bfbfbf;
+    text-align: left;
 }
 
 .#{$BoxWarpPrefixCls}__arrow {
@@ -106,4 +107,5 @@ $BoxWarpPrefixCls: "xy-select-box";
     border-right-width: 1px !important;
     outline: 0;
     box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    z-index: 1;
 }

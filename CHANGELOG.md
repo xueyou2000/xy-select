@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.52 (Thu Apr 18 2019)
+
+-   占位符文本左对齐
+
 ## 0.0.51 (Wed Apr 17 2019)
 
 -   修改`OptionConfig`类型, `disabled`和`filtered`非必须
