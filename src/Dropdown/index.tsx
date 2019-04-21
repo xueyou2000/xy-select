@@ -17,11 +17,11 @@ export function Dropdown(props: DropdownProps) {
     const { prefixCls, children, visible = false, popupClassName, placeholder, empty, dropdownRef, scrollwrapRef } = props;
     const menuRef = useRef();
     const [renderPortal] = usePortal(popupClassName);
-    const [ref, state] = useTranstion(visible, true);
+    const [ref, state] = useTranstion(visible);
     const opening = state.indexOf("en") !== -1;
     const dropdownPrefixCls = `${prefixCls}-dropdown`;
     const classString = classNames(dropdownPrefixCls, `${dropdownPrefixCls}-state-${state}`, {
-        [`${dropdownPrefixCls}-open`]: opening
+        [`${dropdownPrefixCls}-open`]: opening,
     });
 
     // 转发ref
@@ -42,7 +42,7 @@ export function Dropdown(props: DropdownProps) {
                     {renderContent()}
                 </ul>
             </div>
-        </div>
+        </div>,
     );
 }
 
