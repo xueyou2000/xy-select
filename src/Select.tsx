@@ -13,7 +13,7 @@ import SelectBoxContent from "./SelectInner/SelectBoxContent";
 import SelectSearch from "./SelectInner/SelectSearch";
 
 export function Select(props: SelectProps) {
-    const { prefixCls = "xy-select", className, style, children, multiple, stretch = true, popupClassName, searchMode = false, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex } = props;
+    const { prefixCls = "xy-select", className, style, children, multiple, stretch = true, popupClassName, searchMode = false, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex, onBlur } = props;
     const innerRef = useRef();
     const dropdownRef = useRef();
     const [search, setSearch] = useState("");
@@ -45,7 +45,7 @@ export function Select(props: SelectProps) {
 
     return (
         <SelectContext.Provider value={{ value, filter, search, options, onOptionAdd, onOptionRemove, onSelect, focusValue, multiple, onUnSelect }}>
-            <div className={classString} style={style} ref={innerRef}>
+            <div className={classString} style={style} onBlur={onBlur} ref={innerRef}>
                 <SelectBox
                     prefixCls={prefixCls}
                     autoFocus={autoFocus}

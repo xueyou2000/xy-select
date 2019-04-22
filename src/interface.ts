@@ -160,6 +160,10 @@ export interface SelectProps {
      */
     onChange?: (value: SelectedValue) => void;
     /**
+     * onBlur事件
+     */
+    onBlur?: (e: React.FocusEvent<HTMLDivElement>) => void;
+    /**
      * 搜索
      */
     onSearch?: Function;
