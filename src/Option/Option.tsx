@@ -29,7 +29,7 @@ function useHasFiltered(cfg: OptionConfig, filter?: SelectFilter, search?: strin
 export function Option(props: OptionProps) {
     const { prefixCls = "xy-option", className, style, disabled = false, divided, children } = props;
     const content = typeof children === "string" ? children : null;
-    const value = props.value || content;
+    const value = "value" in props ? props.value : content;
     const label = props.label || content;
     const context = useContext(SelectContext);
     const classString = classNames(prefixCls, className, {
@@ -40,7 +40,10 @@ export function Option(props: OptionProps) {
     });
     const cfg = useRef<OptionConfig>({ value, label, disabled, filtered: false });
     const filtered = useHasFiltered(cfg.current, context.filter, context.search);
+    // Option更新后, 也要更新这些值
     cfg.current.filtered = filtered;
+    cfg.current.label = label;
+    cfg.current.value = value;
 
     useMount(() => {
         context.onOptionAdd(cfg.current);

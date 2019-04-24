@@ -12,9 +12,11 @@ import SelectBox from "./SelectInner/SelectBox";
 import SelectBoxContent from "./SelectInner/SelectBoxContent";
 import SelectSearch from "./SelectInner/SelectSearch";
 
-export function Select(props: SelectProps) {
+export const Select = React.forwardRef((props: SelectProps, innerRef: React.MutableRefObject<any>) => {
     const { prefixCls = "xy-select", className, style, children, multiple, stretch = true, popupClassName, searchMode = false, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex, onBlur } = props;
-    const innerRef = useRef();
+    if (!innerRef) {
+        innerRef = useRef();
+    }
     const dropdownRef = useRef();
     const [search, setSearch] = useState("");
     const [visible, setVisible, toggleVisible, align] = useVisible(innerRef, dropdownRef, disabled, stretch, `.${prefixCls}-box`);
@@ -28,7 +30,6 @@ export function Select(props: SelectProps) {
         [`${prefixCls}-hide-item`]: search !== ""
     });
     const selectedCfg = getOptionCfg(value);
-
     const [empty, setEmpty] = useState(false);
 
     useUpdateEffect(() => {
@@ -65,6 +66,6 @@ export function Select(props: SelectProps) {
             </Dropdown>
         </SelectContext.Provider>
     );
-}
+});
 
-export default React.memo(Select);
+export default Select;

@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.0.56 (Wed Apr 24 2019)
+
+-   转发 Ref
+-   修复 Option 获取 value 问题, 当 value 为空时也要判断
+-   Option 的`label`, `value`更新后, context 中的状态需要同步
+
 ## 0.0.55 (Mon Apr 22 2019)
 
 -   增加`onBlur`事件
