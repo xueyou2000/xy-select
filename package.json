@@ -1,7 +1,7 @@
 {
     "name": "xy-select",
-    "version": "0.0.56",
-    "description": "基于React的基础组件",
+    "version": "0.0.6",
+    "description": "基于React的下拉列表组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",
     "module": "es/index.js",
@@ -10,7 +10,7 @@
     "files": [
         "es",
         "dist",
-        "assets/*.css"
+        "assets"
     ],
     "scripts": {
         "test": "quick-react-scripts test",
@@ -58,8 +58,8 @@
         "react": "^16.8.2",
         "react-dom": "^16.8.2",
         "utils-dom": "0.0.57",
-        "utils-hooks": "0.0.63",
-        "xy-empty": "^0.0.2"
+        "utils-hooks": "0.0.65",
+        "xy-empty": "0.0.4"
     },
     "repository": {
         "type": "git",

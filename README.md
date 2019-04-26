@@ -25,10 +25,10 @@
 
 ```sh
 # npm
-npm install --save xy-select
+npm install --save xy-select utils-dom utils-hooks xy-empty classnames
 
 # yarn
-yarn add xy-select
+yarn add xy-select utils-dom utils-hooks xy-empty classnames
 ```
 
 ## 使用
