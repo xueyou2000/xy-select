@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import { useUpdateEffect } from "utils-hooks";
 import { SelectContext } from "./Context";
 import Dropdown from "./Dropdown";
@@ -43,6 +43,11 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
             onSearch(val);
         }
     }
+
+    // 搜索改变后也要重新对齐
+    useLayoutEffect(() => {
+        align();
+    }, [search]);
 
     return (
         <SelectContext.Provider value={{ value, filter, search, options, onOptionAdd, onOptionRemove, onSelect, focusValue, multiple, onUnSelect }}>
