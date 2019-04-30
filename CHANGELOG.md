@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.1 (Tue Apr 30 2019)
+
+-   修复`tsconfig.json`导致的编译问题
+
 ## 1.0.0 (Tue Apr 30 2019)
 
 -   修改 tsconfig.json，修复打包
