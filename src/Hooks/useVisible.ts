@@ -62,9 +62,15 @@ export default function useVisible(innerRef: React.MutableRefObject<any>, dropdo
     }
 
     // 点击空白处则收起
-    useOutsideClick([innerRef.current, dropdownRef.current], () => {
-        setVisible(false);
-    });
+    useOutsideClick(
+        [innerRef.current, dropdownRef.current],
+        () => {
+            if (visible) {
+                setVisible(false);
+            }
+        },
+        [visible]
+    );
 
     return [visible, setSelectVisible, showVisible, align];
 }
