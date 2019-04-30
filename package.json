@@ -7,6 +7,10 @@
     "module": "es/index.js",
     "publisher": "XueYou",
     "license": "MIT",
+    "sideEffects": [
+        "*.css",
+        "*.scss"
+    ],
     "files": [
         "es",
         "dist",
