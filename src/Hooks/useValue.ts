@@ -1,4 +1,4 @@
-import { SelectedValue, SelectProps } from "@/interface";
+import { SelectedValue, SelectProps } from "../interface";
 import { useLayoutEffect } from "react";
 import { useControll } from "utils-hooks";
 

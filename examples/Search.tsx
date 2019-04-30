@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Select, Option, OptGroup } from "../src";
+import React from "react";
+import { OptGroup, Option, Select } from "xy-select";
+import "xy-select/assets/index";
 
 export default function() {
     return (

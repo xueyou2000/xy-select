@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.0.8 (Tue Apr 30 2019)
+
+-   从`storybook`换成`xy-manual-tools`来管理 demo
+-   改进`demo`
+
 ## 0.0.7 (Fri Apr 26 2019)
 
 -   搜索值改变后也要重新对齐

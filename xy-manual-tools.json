@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Simple",
+        "title": "简单使用",
+        "desc": "默认请选择。"
+    },
+    {
+        "name": "OptGroup",
+        "title": "分组",
+        "desc": "用 OptGroup 组件包裹一组 Option, 起到视觉上的分类效果, 不可嵌套"
+    },
+    {
+        "name": "Multiple",
+        "title": "多选",
+        "desc": "设置 multiple 属性为 true 开启多选模式, 多选模式下 value, onchange回调 的值都是数组"
+    },
+    {
+        "name": "Search",
+        "title": "搜索模式",
+        "desc": "设置 search 属性为 true 开启搜索模式, 点击下拉列表会有输入框，搜索对应 Option"
+    }
+]
