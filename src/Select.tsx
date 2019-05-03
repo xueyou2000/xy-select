@@ -15,9 +15,9 @@ import SelectSearch from "./SelectInner/SelectSearch";
 export const Select = React.forwardRef((props: SelectProps, innerRef: React.MutableRefObject<any>) => {
     const { prefixCls = "xy-select", className, style, children, multiple, stretch = true, popupClassName, searchMode = false, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex, onBlur } = props;
     if (!innerRef) {
-        innerRef = useRef();
+        innerRef = useRef(null);
     }
-    const dropdownRef = useRef();
+    const dropdownRef = useRef(null);
     const [search, setSearch] = useState("");
     const [visible, setVisible, toggleVisible, align] = useVisible(innerRef, dropdownRef, disabled, stretch, `.${prefixCls}-box`);
     const [value, onSelect, onUnSelect] = useValue(props, setVisible, align);
@@ -27,7 +27,7 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-visible`]: visible,
         [`${prefixCls}-searchMode`]: searchMode,
-        [`${prefixCls}-hide-item`]: search !== ""
+        [`${prefixCls}-hide-item`]: search !== "",
     });
     const selectedCfg = getOptionCfg(value);
     const [empty, setEmpty] = useState(false);

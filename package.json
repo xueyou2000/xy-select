@@ -1,6 +1,6 @@
 {
     "name": "xy-select",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "基于React的下拉列表组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",
@@ -39,12 +39,12 @@
         "@types/classnames": "^2.2.7",
         "@types/jest": "24.0.6",
         "@types/node": "11.9.4",
-        "@types/react": "16.8.4",
+        "@types/react": "16.8.2",
         "@types/react-dom": "16.8.2",
         "@types/shallowequal": "^1.1.1",
         "quick-react-scripts": "1.1.1",
         "react-testing-library": "^6.0.0",
-        "xy-manual-tools": "^0.0.4"
+        "xy-manual-tools": "0.0.7"
     },
     "dependencies": {
         "classnames": "^2.2.6",

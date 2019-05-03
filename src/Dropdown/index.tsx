@@ -15,7 +15,7 @@ import { DropdownProps } from "../interface";
  */
 export function Dropdown(props: DropdownProps) {
     const { prefixCls, children, visible = false, popupClassName, placeholder, empty, dropdownRef, scrollwrapRef } = props;
-    const menuRef = useRef();
+    const menuRef = useRef(null);
     const [renderPortal] = usePortal(popupClassName);
     const [ref, state] = useTranstion(visible);
     const opening = state.indexOf("en") !== -1;

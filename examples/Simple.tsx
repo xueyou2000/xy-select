@@ -1,6 +1,6 @@
 import React from "react";
-import { Option, Select } from "xy-select";
-import "xy-select/assets/index";
+import { Option, Select } from "../src";
+import "../src/assets/index";
 
 export default function() {
     return (

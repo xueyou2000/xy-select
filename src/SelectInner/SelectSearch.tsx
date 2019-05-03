@@ -5,7 +5,7 @@ import { SelectBoxSearchProps } from "../interface";
 export function SelectSearch(props: SelectBoxSearchProps) {
     const { prefixCls, visible, blurClear = true, onSearchChange } = props;
     const [search, setSearch, isControll] = useControll(props, "search", "defaultSearch");
-    const inputRef = useRef();
+    const inputRef = useRef(null);
 
     useEffect(() => {
         const input = inputRef.current as HTMLInputElement;

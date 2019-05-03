@@ -15,8 +15,7 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "paths": {
-            "xy-select": ["src/index.tsx"],
-            "xy-select/*": ["src/*"]
+            "@/*": ["src/*"]
         },
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
@@ -24,5 +23,6 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },
-    "include": ["src"]
+    "include": ["src"],
+    "exclude": ["node_modules"]
 }

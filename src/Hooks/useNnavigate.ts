@@ -15,10 +15,10 @@ export default function useNnavigate(
     options: React.MutableRefObject<OptionConfig[]>,
     value: any,
     selectValue: (val: any) => void,
-    setVisible: (vis: boolean, isAlign?: boolean) => void
+    setVisible: (vis: boolean, isAlign?: boolean) => void,
 ): [any, (e: React.KeyboardEvent<HTMLElement>) => void, React.MutableRefObject<any>] {
     const [focusValue, setFocusValue] = useState(value && value.length > 0 ? value[0] : value);
-    const scrollwrapRef = useRef();
+    const scrollwrapRef = useRef(null);
     const handleKeyDown = CreateNnavigateHandle({
         onEnter: () => {
             if (focusValue) {
@@ -36,7 +36,7 @@ export default function useNnavigate(
         },
         onPrev: () => {
             setNextFocus();
-        }
+        },
     });
 
     function setNextFocus(isnext = true) {
