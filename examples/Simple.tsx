@@ -1,6 +1,5 @@
 import React from "react";
 import { Option, Select } from "../src";
-import "../src/assets/index";
 
 export default function() {
     return (

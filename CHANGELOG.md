@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.3 (Sun May 05 2019)
+
+-   更新`xy-manual-tools`, 修复编译 demo
+
 ## 1.0.2 (Fri May 03 2019)
 
 -   更新`xy-manual-tools`
