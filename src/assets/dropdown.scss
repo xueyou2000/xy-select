@@ -18,7 +18,7 @@ $DropdownWarpPrefixCls: "xy-select-dropdown";
     border-radius: 4px;
     outline: none;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    animation: 0.3s dropdownOut;
+    animation: 0.3s slideUpOut;
     font-size: 14px;
     transform-origin: center top;
 
@@ -48,7 +48,7 @@ $DropdownWarpPrefixCls: "xy-select-dropdown";
     }
 }
 .#{$DropdownWarpPrefixCls}-open {
-    animation: 0.3s dropdownIn;
+    animation: 0.3s slideUpIn;
 }
 
 .#{$DropdownWarpPrefixCls}__scrollwrap {
@@ -66,23 +66,30 @@ $DropdownWarpPrefixCls: "xy-select-dropdown";
     background-color: #fff;
 }
 
-@keyframes dropdownIn {
+@keyframes slideUpIn {
     0% {
-        opacity: 0.3;
-        transform: scale(0, 0) scaleY(0.1);
+        transform: scaleY(0.8);
+        transform-origin: 0% 0%;
+        opacity: 0;
     }
+
     100% {
+        transform: scaleY(1);
+        transform-origin: 0% 0%;
         opacity: 1;
-        transform: scale(1, 1) scaleY(1);
     }
 }
-@keyframes dropdownOut {
+
+@keyframes slideUpOut {
     0% {
+        transform: scaleY(1);
+        transform-origin: 0% 0%;
         opacity: 1;
-        transform: scale(1, 1) scaleY(1);
     }
+
     100% {
-        opacity: 0.3;
-        transform: scale(0, 0) scaleY(0.1);
+        transform: scaleY(0.8);
+        transform-origin: 0% 0%;
+        opacity: 0;
     }
 }
