@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.4 (Thu May 09 2019)
+
+-   阻止`option`冒泡
+
 ## 1.0.3 (Sun May 05 2019)
 
 -   更新`xy-manual-tools`, 修复编译 demo

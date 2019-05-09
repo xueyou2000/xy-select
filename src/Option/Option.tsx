@@ -61,10 +61,11 @@ export function Option(props: OptionProps) {
         }
     }
 
-    function setClick() {
+    function setClick(e: React.MouseEvent<HTMLElement>) {
         if (!disabled) {
             context.onSelect(value);
         }
+        e.stopPropagation();
     }
 
     if (filtered) {
