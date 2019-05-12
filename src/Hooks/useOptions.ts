@@ -1,8 +1,8 @@
-import { OptionConfig } from "../interface";
-import { useRef, useState, useEffect } from "react";
-import { useMount } from "utils-hooks";
+import { useRef } from "react";
+import { useForceUpdate, useMount } from "utils-hooks";
+import { OptionConfig, OptionsContextState } from "../interface";
 
-type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, (cfg: OptionConfig) => void, (value: string | number) => void, (val: any) => OptionConfig | OptionConfig[], React.MutableRefObject<Map<any, OptionConfig>>];
+type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, React.MutableRefObject<OptionsContextState>, (val: any) => OptionConfig | OptionConfig[], React.MutableRefObject<Map<any, OptionConfig>>];
 
 /**
  * 管理select内声明的option
@@ -12,9 +12,9 @@ type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, (cfg: OptionCon
  */
 export default function useOptions(multiple: boolean): UseOptionsReturn {
     const options = useRef<OptionConfig[]>([]);
-    const initRef = useRef(false);
-    const [_, updateSelectedCfg] = useState(0);
     const cacheSelectCfg = useRef(new Map<any, OptionConfig>());
+    const optionsContextRef = useRef<OptionsContextState>({ onOptionAdd, onOptionRemove });
+    const update = useForceUpdate();
 
     /**
      * 添加option
@@ -41,7 +41,7 @@ export default function useOptions(multiple: boolean): UseOptionsReturn {
      * @param {string} [prop='value']
      * @returns {(OptionConfig | OptionConfig[])}
      */
-    function getOptionCfg(value: any): OptionConfig | OptionConfig[] {
+    function getOptionCfg(value: any) {
         if (multiple) {
             const cfgs = [];
             value.forEach((val) => {
@@ -58,9 +58,8 @@ export default function useOptions(multiple: boolean): UseOptionsReturn {
 
     // Tips: 这里主要是为了初次 options 收集完毕后, 重新渲染SelectInner
     useMount(() => {
-        initRef.current = true;
-        updateSelectedCfg(1);
+        update();
     });
 
-    return [options, onOptionAdd, onOptionRemove, getOptionCfg, cacheSelectCfg];
+    return [options, optionsContextRef, getOptionCfg, cacheSelectCfg];
 }

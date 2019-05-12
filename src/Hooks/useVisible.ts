@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { alignElement } from "utils-dom";
-import { useOutsideClick } from "utils-hooks";
 
-type UseVisibleReturn = [boolean, (v: boolean, isAlign?: boolean) => void, () => void, Function];
+type UseVisibleReturn = [boolean, (v: boolean, event?: MouseEvent) => void];
 
 /**
  * 管理Select下拉列表的可视与对齐
@@ -11,66 +9,23 @@ type UseVisibleReturn = [boolean, (v: boolean, isAlign?: boolean) => void, () =>
  * @param disabled  是否禁用
  * @param blurClassSelector 关闭时需要设置焦点的选择器
  */
-export default function useVisible(innerRef: React.MutableRefObject<any>, dropdownRef: React.MutableRefObject<any>, disabled: boolean, stretch: boolean, blurClassSelector?: string): UseVisibleReturn {
+export default function useVisible(innerRef: React.MutableRefObject<any>): UseVisibleReturn {
     const [visible, setVisible] = useState(false);
 
-    function align() {
+    function changeVisible(v: boolean, event?: MouseEvent) {
         const element = innerRef.current as HTMLElement;
-        const dropdown = dropdownRef.current as HTMLElement;
-        if (!element || !dropdown || disabled) {
-            return;
-        }
+        const target = event && (event.target as HTMLElement);
 
-        if (stretch) {
-            dropdown.style.width = element.clientWidth + "px";
-        }
-        dropdown.style.height = null;
-        alignElement(dropdown, innerRef.current, {
-            points: ["tl", "bl"],
-            offset: [0, 5],
-            overflow: { flip: true, adjust: false }
-        });
-    }
-
-    function setSelectVisible(visible: boolean, isAlign?: boolean) {
-        const element = innerRef.current as HTMLElement;
-        if (disabled) {
-            return;
-        }
-        if (visible) {
-            if (isAlign) {
-                align();
+        if (target && element) {
+            const closeTags = element.querySelectorAll(".xy-select-item__remove") as NodeListOf<HTMLElement>;
+            const isClose = [].some.call(closeTags, (tag: HTMLElement) => tag === target || tag.contains(target));
+            if (!isClose) {
+                setVisible(v);
             }
-            setVisible(true);
         } else {
-            setVisible(false);
-            if (element && blurClassSelector) {
-                const selectInner = element.querySelector(blurClassSelector) as HTMLElement;
-                if (selectInner) {
-                    selectInner.focus();
-                }
-            }
+            setVisible(v);
         }
     }
 
-    function toggleVisible() {
-        setSelectVisible(!visible, true);
-    }
-
-    function showVisible() {
-        setSelectVisible(true, true);
-    }
-
-    // 点击空白处则收起
-    useOutsideClick(
-        [innerRef.current, dropdownRef.current],
-        () => {
-            if (visible) {
-                setVisible(false);
-            }
-        },
-        [visible]
-    );
-
-    return [visible, setSelectVisible, showVisible, align];
+    return [visible, changeVisible];
 }

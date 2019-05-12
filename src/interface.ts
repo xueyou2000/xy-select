@@ -33,6 +33,10 @@ export interface OptionProps {
      */
     label?: string;
     /**
+     * 附加数据
+     */
+    data?: any;
+    /**
      * 内容
      */
     children?: React.ReactNode;
@@ -67,17 +71,17 @@ export interface DropdownProps {
      */
     prefixCls?: string;
     /**
+     * 根节点的附加类名
+     */
+    className?: string;
+    /**
+     * 内联样式
+     */
+    style?: React.CSSProperties;
+    /**
      * options内容
      */
     children?: React.ReactNode;
-    /**
-     * 弹出内容类名
-     */
-    popupClassName?: string;
-    /**
-     * 是否可视
-     */
-    visible?: boolean;
     /**
      * 空内容, 显示占位符
      */
@@ -91,11 +95,6 @@ export interface DropdownProps {
      * @description 暴露出包含滚动条的dom元素
      */
     scrollwrapRef?: React.MutableRefObject<any>;
-    /**
-     * dropdownRef
-     * @description 暴露出dropdown跟节点的dom元素
-     */
-    dropdownRef?: React.MutableRefObject<any>;
 }
 
 export interface SelectProps {
@@ -178,11 +177,7 @@ export interface SelectProps {
     searchMode?: boolean;
 }
 
-export interface SelectContextState {
-    /**
-     * select选中值
-     */
-    value?: SelectedValue;
+export interface OptionStateContextState {
     /**
      * 当前焦点值
      */
@@ -195,14 +190,13 @@ export interface SelectContextState {
      * 搜索值
      */
     search?: string;
+}
+
+export interface ValueContextState {
     /**
-     * 是否多选
+     * select选中值
      */
-    multiple?: boolean;
-    /**
-     * 当前options集合
-     */
-    options?: React.MutableRefObject<OptionConfig[]>;
+    value?: SelectedValue;
     /**
      * option选中事件
      */
@@ -211,6 +205,9 @@ export interface SelectContextState {
      * option取消选中事件
      */
     onUnSelect?: (val: string | number) => void;
+}
+
+export interface OptionsContextState {
     /**
      * 添加option
      */
@@ -225,7 +222,7 @@ export interface OptionConfig {
     /**
      * option值
      */
-    value: string | number;
+    value?: string | number;
     /**
      * option文本
      */
@@ -238,6 +235,10 @@ export interface OptionConfig {
      * 是否过滤
      */
     filtered?: boolean;
+    /**
+     * 附加数据
+     */
+    data?: any;
 }
 
 /**
@@ -257,14 +258,6 @@ export interface SelectBoxProps {
      */
     style?: React.CSSProperties;
     /**
-     * 是否焦点
-     */
-    autoFocus?: boolean;
-    /**
-     * tabIndex
-     */
-    tabIndex?: number;
-    /**
      * 是否多选
      */
     multiple?: boolean;
@@ -273,17 +266,13 @@ export interface SelectBoxProps {
      */
     placeholder?: React.ReactNode;
     /**
-     * 内容
+     * 搜索输入框节点
      */
-    children: React.ReactNode;
+    children?: React.ReactNode;
     /**
      * 已经选中的OptionConfig配置集合
      */
     selectedCfg?: OptionConfig | OptionConfig[];
-    /**
-     * 搜索输入框节点
-     */
-    searchContent?: React.ReactNode;
     /**
      * 点击事件
      */
@@ -292,6 +281,14 @@ export interface SelectBoxProps {
      * 键盘事件
      */
     onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
+    /**
+     * 焦点事件
+     */
+    onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
+    /**
+     * 失去焦点事件
+     */
+    onBlur?: (event: React.FocusEvent<HTMLDivElement>) => void;
 }
 
 /**
@@ -302,6 +299,10 @@ export interface SelectBoxContentProps {
      * 附加类名
      */
     prefixCls?: string;
+    /**
+     * 是否多选
+     */
+    multiple?: boolean;
     /**
      * 已经选中的OptionConfig配置集合
      */

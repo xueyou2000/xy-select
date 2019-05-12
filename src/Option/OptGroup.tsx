@@ -1,8 +1,8 @@
 import classNames from "classnames";
-import React, { useContext, useState, useRef } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
+import { useUpdateEffect } from "utils-hooks";
+import { OptionsContext, OptionStateContext } from "../Context";
 import { OptGroupProps, OptionConfig } from "../interface";
-import { SelectContext } from "../Context";
-import { useMount, useUpdateEffect } from "utils-hooks";
 
 /**
  * Option分组
@@ -10,31 +10,34 @@ import { useMount, useUpdateEffect } from "utils-hooks";
  */
 export function OptGroup(props: OptGroupProps) {
     const { prefixCls = "xy-optgroup", className, style, label, children } = props;
-    // 代理 SelectContext.onOptionAdd, SelectContext.onOptionRemove 维护自己分组内部options集合
-    const context = useContext(SelectContext);
+    // 代理 OptionsContext.onOptionAdd, OptionsContext.onOptionRemove 维护自己分组内部options集合
+    const context = useContext(OptionsContext);
+    // Tips: 为了触发更新, 判断是否为空
+    useContext(OptionStateContext);
     const options = useRef<OptionConfig[]>([]);
     // 是否此分组内的option都不可用(被禁用或过滤)
     const [empty, setEmpty] = useState(false);
+
     useUpdateEffect(() => {
         const _empy = options.current.filter((x) => !x.disabled && !x.filtered).length === 0;
         setEmpty(_empy);
     });
 
-    function onOptionAdd(cfg: OptionConfig) {
+    const onOptionAdd = useCallback((cfg: OptionConfig) => {
         if (!options.current.some((x) => x.value === cfg.value)) {
             options.current.push(cfg);
         }
-        if (context.onOptionAdd) {
+        if (context && context.onOptionAdd) {
             context.onOptionAdd(cfg);
         }
-    }
+    }, []);
 
-    function onOptionRemove(value: string | number) {
+    const onOptionRemove = useCallback((value: string | number) => {
         options.current = options.current.filter((cfg) => cfg.value !== value);
-        if (context.onOptionRemove) {
+        if (context && context.onOptionRemove) {
             context.onOptionRemove(value);
         }
-    }
+    }, []);
 
     // 没有option时, 分组不显示
     if (!children || (children instanceof Array && children.length <= 0)) {
@@ -46,9 +49,9 @@ export function OptGroup(props: OptGroupProps) {
             <p title={label} className={`${prefixCls}__title`}>
                 {label}
             </p>
-            <SelectContext.Provider value={{ ...context, onOptionAdd, onOptionRemove }}>
+            <OptionsContext.Provider value={{ onOptionAdd, onOptionRemove }}>
                 <ul className={`${prefixCls}__list`}>{children}</ul>
-            </SelectContext.Provider>
+            </OptionsContext.Provider>
         </li>
     );
 }

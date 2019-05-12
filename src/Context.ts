@@ -1,4 +1,8 @@
 import React from "react";
-import { SelectContextState } from "./interface";
+import { OptionStateContextState, ValueContextState, OptionsContextState } from "./interface";
 
-export const SelectContext = React.createContext<SelectContextState>({});
+export const OptionStateContext = React.createContext<OptionStateContextState>(null);
+
+export const ValueContext = React.createContext<ValueContextState>(null);
+
+export const OptionsContext = React.createContext<OptionsContextState>(null);

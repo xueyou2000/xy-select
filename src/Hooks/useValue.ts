@@ -1,8 +1,8 @@
-import { SelectedValue, SelectProps } from "../interface";
-import { useLayoutEffect } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
 import { useControll } from "utils-hooks";
+import { SelectedValue, SelectProps } from "../interface";
 
-type UseValueReturn = [any, (val: string | number) => void, (val: string | number) => void];
+type UseValueReturn = [any, (val: string | number) => void, (val: string | number) => void, string, (search: string) => void];
 
 /**
  * 管理select选中的值
@@ -10,14 +10,15 @@ type UseValueReturn = [any, (val: string | number) => void, (val: string | numbe
  * @param setVisible    设置可视状态
  * @param align   对齐函数
  */
-export default function useValue(props: SelectProps, setVisible: (v: boolean, isAlign?: boolean) => void, align: Function): UseValueReturn {
-    const { multiple, disabled, onChange } = props;
+export default function useValue(props: SelectProps, setVisible: (v: boolean) => void, align: React.MutableRefObject<Function>): UseValueReturn {
+    const { multiple, disabled, onChange, onSearch } = props;
     const [value, setValue, isControll] = useControll<SelectedValue>(props, "value", "defaultValue", multiple ? [] : null);
+    const [search, setSearch] = useState("");
 
     // Tips: 多选模式下, Select选择器高度随所选值动态改变, 需要重新对齐
     useLayoutEffect(() => {
-        if (multiple) {
-            align();
+        if (multiple && align.current) {
+            align.current(false);
         }
     }, [value]);
 
@@ -73,5 +74,12 @@ export default function useValue(props: SelectProps, setVisible: (v: boolean, is
         }
     }
 
-    return [value, onSelect, onUnSelect];
+    const searchHandle = useCallback((val: string) => {
+        setSearch(val);
+        if (onSearch) {
+            onSearch(val);
+        }
+    }, []);
+
+    return [value, onSelect, onUnSelect, search, searchHandle];
 }

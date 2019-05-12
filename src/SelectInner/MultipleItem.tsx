@@ -1,31 +1,38 @@
 import classNames from "classnames";
-import React, { useContext } from "react";
-import { SelectContext } from "../Context";
+import React, { useContext, useEffect, useState } from "react";
+import { EXITED, useTranstion } from "utils-hooks";
+import { ValueContext } from "../Context";
 import { SelectItemProps } from "../interface";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function MultipleItem(props: SelectItemProps) {
     const { className, style, children, value } = props;
-    const context = useContext(SelectContext);
+    const [destroy, setDestroy] = useState(false);
+    const [ref, state] = useTranstion(!destroy);
+    const closeing = destroy ? state.indexOf("ex") !== -1 : false;
+    const context = useContext(ValueContext);
     const prefixCls = `${props.prefixCls}-item`;
     const classString = classNames(`${prefixCls}`, className, {
-        [`${prefixCls}-tag`]: true
+        [`${prefixCls}-tag`]: true,
+        [`${prefixCls}-out`]: closeing,
     });
 
-    function removeHandle(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-        const li = (e.target as HTMLElement).parentNode as HTMLElement;
-        li.classList.add(`${prefixCls}-out`);
-        e.stopPropagation();
-
-        setTimeout(() => {
+    useEffect(() => {
+        if (destroy && state === EXITED && context) {
             context.onUnSelect(value);
-        }, 300);
+        }
+    }, [state]);
+
+    function removeHandle(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
+        setDestroy(true);
     }
 
     return (
-        <li className={classString} style={style}>
+        <li className={classString} style={style} ref={ref}>
             <div className={`${prefixCls}__content`}>{children}</div>
-            <span className={`${prefixCls}__remove`} onClick={removeHandle}>
-                x
+            <span className={`${prefixCls}__remove`} data-close="on" onClick={removeHandle}>
+                <FontAwesomeIcon icon={faTimes} />
             </span>
         </li>
     );

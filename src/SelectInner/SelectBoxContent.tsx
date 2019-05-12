@@ -1,14 +1,12 @@
-import { SelectContext } from "../Context";
-import React, { useContext } from "react";
+import React from "react";
 import { OptionConfig, SelectBoxContentProps } from "../interface";
 import MultipleItem from "./MultipleItem";
 import SingleItem from "./SingleItem";
 
 export function SelectBoxContent(props: SelectBoxContentProps): any {
-    const { prefixCls, selectedCfg } = props;
-    const context = useContext(SelectContext);
+    const { prefixCls = "xy-select", multiple, selectedCfg } = props;
 
-    if (context.multiple) {
+    if (multiple) {
         const cfgs = selectedCfg as OptionConfig[];
         return (
             cfgs && (

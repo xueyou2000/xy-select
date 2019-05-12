@@ -1,43 +1,65 @@
 import { OptionConfig } from "../interface";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useMemo } from "react";
 import { CreateNnavigateHandle, locateElement } from "utils-dom";
 
 /**
  * 管理Select选择器的键盘导航
- * @export
- * @param {React.MutableRefObject<OptionConfig[]>} options  options配置集合
- * @param {*} value 当前选中值
- * @param {(val: any) => void} selectValue 设置选中值
- * @param {(vis: boolean, isAlign?: boolean) => void} setVisible    设置下拉列表是否显示
- * @returns {[any, (e: React.KeyboardEvent<HTMLElement>) => void, React.MutableRefObject<any>]}
  */
 export default function useNnavigate(
     options: React.MutableRefObject<OptionConfig[]>,
     value: any,
     selectValue: (val: any) => void,
-    setVisible: (vis: boolean, isAlign?: boolean) => void,
+    setVisible: (vis: boolean) => void,
+    multiple: boolean,
+    searchMode: boolean,
 ): [any, (e: React.KeyboardEvent<HTMLElement>) => void, React.MutableRefObject<any>] {
-    const [focusValue, setFocusValue] = useState(value && value.length > 0 ? value[0] : value);
+    const [focusValue, setFocusValue] = useState(multiple ? null : value && value.length > 0 ? value[0] : value);
     const scrollwrapRef = useRef(null);
-    const handleKeyDown = CreateNnavigateHandle({
-        onEnter: () => {
-            if (focusValue) {
-                selectValue(focusValue);
+    const handleKeyDown = useCallback(
+        CreateNnavigateHandle({
+            onEnter: (e: KeyboardEvent) => {
+                if (focusValue !== undefined || focusValue !== null) {
+                    selectValue(focusValue);
+                }
+                const selectBox = e.currentTarget as HTMLElement;
+                if (selectBox && multiple) {
+                    if (searchMode) {
+                        selectBox.querySelector("input").focus();
+                    } else {
+                        selectBox.focus();
+                    }
+                }
+            },
+            onShow: () => {
+                setVisible(true);
+            },
+            onHide: (e: KeyboardEvent) => {
+                setVisible(false);
+                const selectBox = e.currentTarget as HTMLElement;
+                if (selectBox) {
+                    selectBox.focus();
+                }
+            },
+            onNext: () => {
+                setNextFocus(false);
+            },
+            onPrev: () => {
+                setNextFocus();
+            },
+        }),
+        [focusValue, value],
+    );
+
+    function restoreFocus(e: KeyboardEvent) {
+        const selectBox = e.currentTarget as HTMLElement;
+        if (selectBox) {
+            if (searchMode) {
+                selectBox.querySelector("input").focus();
+            } else {
+                selectBox.focus();
             }
-        },
-        onShow: () => {
-            setVisible(true, true);
-        },
-        onHide: () => {
-            setVisible(false);
-        },
-        onNext: () => {
-            setNextFocus(false);
-        },
-        onPrev: () => {
-            setNextFocus();
-        },
-    });
+        }
+    }
 
     function setNextFocus(isnext = true) {
         const opts = options.current.filter((x) => !x.disabled && !x.filtered);

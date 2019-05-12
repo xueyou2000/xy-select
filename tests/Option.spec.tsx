@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "react-testing-library";
-import { Select, OptGroup, Option, SelectLocal, SelectContext } from "../src";
+import { Select, OptGroup, Option, SelectLocal, OptionsContext, OptionStateContext, ValueContext } from "../src";
 import { OptionConfig } from "../src/interface";
 
 describe("Option", () => {
@@ -9,9 +9,9 @@ describe("Option", () => {
         const removeFn = jest.fn();
 
         const wrapper = render(
-            <SelectContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: removeFn }}>
+            <OptionsContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: removeFn }}>
                 <Option value="1">选项一</Option>
-            </SelectContext.Provider>
+            </OptionsContext.Provider>,
         );
         const option = wrapper.getByText("选项一");
         expect(option.classList.contains("xy-option-checked")).toBeFalsy();
@@ -26,10 +26,12 @@ describe("Option", () => {
         const removeFn = jest.fn();
 
         const wrapper = render(
-            <SelectContext.Provider value={{ focusValue: "cc", onOptionAdd: addFn, onOptionRemove: removeFn }}>
-                <Option value="bb">普通选项</Option>
-                <Option value="cc">焦点选项</Option>
-            </SelectContext.Provider>
+            <OptionsContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: removeFn }}>
+                <OptionStateContext.Provider value={{ focusValue: "cc" }}>
+                    <Option value="bb">普通选项</Option>
+                    <Option value="cc">焦点选项</Option>
+                </OptionStateContext.Provider>
+            </OptionsContext.Provider>,
         );
         const option1 = wrapper.getByText("普通选项");
         expect(option1.classList.contains("xy-option-focus")).toBeFalsy();
@@ -45,9 +47,9 @@ describe("Option", () => {
         });
 
         render(
-            <SelectContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: jest.fn() }}>
+            <OptionsContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: jest.fn() }}>
                 <Option>武汉</Option>
-            </SelectContext.Provider>
+            </OptionsContext.Provider>,
         );
 
         expect(cfg.value).toBe("武汉");
@@ -60,10 +62,12 @@ describe("Option", () => {
         const onSelect = jest.fn();
 
         const wrapper = render(
-            <SelectContext.Provider value={{ onSelect, onOptionAdd: addFn, onOptionRemove: removeFn }}>
-                <Option value="a">选项1</Option>
-                <Option value="b">选项2</Option>
-            </SelectContext.Provider>
+            <OptionsContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: removeFn }}>
+                <ValueContext.Provider value={{ onSelect }}>
+                    <Option value="a">选项1</Option>
+                    <Option value="b">选项2</Option>
+                </ValueContext.Provider>
+            </OptionsContext.Provider>,
         );
 
         fireEvent.click(wrapper.getByText("选项1"));
@@ -81,10 +85,12 @@ describe("Option", () => {
         const filter = jest.fn((cfg: OptionConfig) => cfg.value === "b");
 
         const wrapper = render(
-            <SelectContext.Provider value={{ filter, onOptionAdd: addFn, onOptionRemove: removeFn }}>
-                <Option value="a">选项1</Option>
-                <Option value="b">选项2</Option>
-            </SelectContext.Provider>
+            <OptionsContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: removeFn }}>
+                <OptionStateContext.Provider value={{ filter }}>
+                    <Option value="a">选项1</Option>
+                    <Option value="b">选项2</Option>
+                </OptionStateContext.Provider>
+            </OptionsContext.Provider>,
         );
 
         const option2 = wrapper.container.querySelector('[data-value="b"]');
@@ -98,10 +104,12 @@ describe("Option", () => {
         const addFn = jest.fn();
         const removeFn = jest.fn();
         const wrapper = render(
-            <SelectContext.Provider value={{ search: "a", onOptionAdd: addFn, onOptionRemove: removeFn }}>
-                <Option value="a">选项1</Option>
-                <Option value="b">选项2</Option>
-            </SelectContext.Provider>
+            <OptionsContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: removeFn }}>
+                <OptionStateContext.Provider value={{ search: "a" }}>
+                    <Option value="a">选项1</Option>
+                    <Option value="b">选项2</Option>
+                </OptionStateContext.Provider>
+            </OptionsContext.Provider>,
         );
 
         expect(wrapper.getByText("选项1")).toBeDefined();
@@ -111,11 +119,11 @@ describe("Option", () => {
 
     test("Disabled ClassName", () => {
         const wrapper = render(
-            <SelectContext.Provider value={{ onOptionAdd: jest.fn(), onOptionRemove: jest.fn() }}>
+            <OptionsContext.Provider value={{ onOptionAdd: jest.fn(), onOptionRemove: jest.fn() }}>
                 <Option disabled={true} value="1">
                     选项一
                 </Option>
-            </SelectContext.Provider>
+            </OptionsContext.Provider>,
         );
         const option = wrapper.getByText("选项一");
         expect(option.classList.contains("xy-option-disabled")).toBeTruthy();
@@ -123,11 +131,11 @@ describe("Option", () => {
 
     test("Divided ClassName", () => {
         const wrapper = render(
-            <SelectContext.Provider value={{ onOptionAdd: jest.fn(), onOptionRemove: jest.fn() }}>
+            <OptionsContext.Provider value={{ onOptionAdd: jest.fn(), onOptionRemove: jest.fn() }}>
                 <Option divided={true} value="1">
                     选项一
                 </Option>
-            </SelectContext.Provider>
+            </OptionsContext.Provider>,
         );
         const option = wrapper.getByText("选项一");
         expect(option.classList.contains("xy-option-divided")).toBeTruthy();
@@ -135,9 +143,9 @@ describe("Option", () => {
 
     test("When Not Children Don't Render OptGroup", () => {
         const wrapper = render(
-            <SelectContext.Provider value={{ onOptionAdd: jest.fn(), onOptionRemove: jest.fn() }}>
+            <OptionsContext.Provider value={{ onOptionAdd: jest.fn(), onOptionRemove: jest.fn() }}>
                 <OptGroup label="选项组" />
-            </SelectContext.Provider>
+            </OptionsContext.Provider>,
         );
 
         const optGroup = wrapper.container.querySelector(".xy-optgroup");

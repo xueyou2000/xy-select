@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useControll } from "utils-hooks";
 import { SelectBoxSearchProps } from "../interface";
 
 export function SelectSearch(props: SelectBoxSearchProps) {
-    const { prefixCls, visible, blurClear = true, onSearchChange } = props;
-    const [search, setSearch, isControll] = useControll(props, "search", "defaultSearch");
+    const { prefixCls = "xy-select", visible, blurClear = true, search, onSearchChange } = props;
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -22,22 +21,19 @@ export function SelectSearch(props: SelectBoxSearchProps) {
     }, [visible]);
 
     function setValue(value: string) {
-        if (!isControll) {
-            setSearch(value);
-        }
         if (onSearchChange) {
             onSearchChange(value);
         }
     }
 
-    function changeHandle(event: React.ChangeEvent<HTMLInputElement>) {
+    const changeHandle = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
-    }
+    }, []);
 
     return (
         <div className={`${prefixCls}-search--inline`}>
             <div className={`${prefixCls}-search__wrap`}>
-                <input type="text" autoComplete="off" className={`${prefixCls}-search__field`} ref={inputRef} value={search} onChange={changeHandle} />
+                <input type="text" disabled={!visible} autoComplete="off" className={`${prefixCls}-search__field`} ref={inputRef} value={search} onChange={changeHandle} />
             </div>
         </div>
     );

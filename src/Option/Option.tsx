@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useCallback } from "react";
 import { useMount, useUnmount } from "utils-hooks";
-import { SelectContext } from "../Context";
+import { OptionsContext, OptionStateContext, ValueContext } from "../Context";
 import { OptionConfig, OptionProps, SelectFilter } from "../interface";
 
 /**
@@ -27,43 +27,50 @@ function useHasFiltered(cfg: OptionConfig, filter?: SelectFilter, search?: strin
  * @description 必须配合SelectContext使用
  */
 export function Option(props: OptionProps) {
-    const { prefixCls = "xy-option", className, style, disabled = false, divided, children } = props;
+    const { prefixCls = "xy-option", className, style, disabled = false, divided, data, children } = props;
     const content = typeof children === "string" ? children : null;
     const value = "value" in props ? props.value : content;
     const label = props.label || content;
-    const context = useContext(SelectContext);
+    const optionsContext = useContext(OptionsContext);
+    const stateContext = useContext(OptionStateContext);
+    const valueContext = useContext(ValueContext);
     const classString = classNames(prefixCls, className, {
         [`${prefixCls}-checked`]: getContextChecked(),
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-divided`]: divided,
-        [`${prefixCls}-focus`]: context.focusValue === value
+        [`${prefixCls}-focus`]: stateContext && stateContext.focusValue === value,
     });
     const cfg = useRef<OptionConfig>({ value, label, disabled, filtered: false });
-    const filtered = useHasFiltered(cfg.current, context.filter, context.search);
+    const filtered = stateContext ? useHasFiltered(cfg.current, stateContext.filter, stateContext.search) : false;
     // Option更新后, 也要更新这些值
     cfg.current.filtered = filtered;
     cfg.current.label = label;
     cfg.current.value = value;
+    cfg.current.data = data;
 
     useMount(() => {
-        context.onOptionAdd(cfg.current);
+        if (optionsContext) {
+            optionsContext.onOptionAdd(cfg.current);
+        }
     });
 
     useUnmount(() => {
-        context.onOptionRemove(value);
+        if (optionsContext) {
+            optionsContext.onOptionRemove(value);
+        }
     });
 
     function getContextChecked() {
-        if (context.value) {
-            return context.value instanceof Array ? context.value.some((x) => x === value) : context.value === value;
+        if (valueContext && valueContext.value) {
+            return valueContext.value instanceof Array ? valueContext.value.some((x) => x === value) : valueContext.value === value;
         } else {
             return false;
         }
     }
 
-    function setClick(e: React.MouseEvent<HTMLElement>) {
-        if (!disabled) {
-            context.onSelect(value);
+    function clickHandle(e: React.MouseEvent<HTMLElement>) {
+        if (!disabled && valueContext) {
+            valueContext.onSelect(value);
         }
         e.stopPropagation();
     }
@@ -72,7 +79,7 @@ export function Option(props: OptionProps) {
         return null;
     }
     return (
-        <li className={classString} style={style} title={label} data-value={value} onClick={setClick}>
+        <li className={classString} style={style} title={label} data-value={value} onClick={clickHandle}>
             {children}
         </li>
     );

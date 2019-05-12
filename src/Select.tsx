@@ -1,28 +1,30 @@
 import classNames from "classnames";
-import React, { useRef, useState, useLayoutEffect } from "react";
-import { useUpdateEffect } from "utils-hooks";
-import { SelectContext } from "./Context";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { TriggerAction, useUpdateEffect } from "utils-hooks";
+import Trigger from "xy-trigger";
+import { OptionsContext, ValueContext, OptionStateContext } from "./Context";
 import Dropdown from "./Dropdown";
-import useNnavigate from "./Hooks/useNnavigate";
 import useOptions from "./Hooks/useOptions";
 import useValue from "./Hooks/useValue";
 import useVisible from "./Hooks/useVisible";
 import { SelectProps } from "./interface";
 import SelectBox from "./SelectInner/SelectBox";
-import SelectBoxContent from "./SelectInner/SelectBoxContent";
 import SelectSearch from "./SelectInner/SelectSearch";
+import useNnavigate from "./Hooks/useNnavigate";
+
+const ACTION: TriggerAction[] = ["click"];
+const POPUPALIGN = { overflow: { adjust: false, flip: true } };
 
 export const Select = React.forwardRef((props: SelectProps, innerRef: React.MutableRefObject<any>) => {
     const { prefixCls = "xy-select", className, style, children, multiple, stretch = true, popupClassName, searchMode = false, filter, autoFocus, disabled = false, placeholder, empyPlaceholder, onSearch, tabIndex, onBlur } = props;
     if (!innerRef) {
         innerRef = useRef(null);
     }
-    const dropdownRef = useRef(null);
-    const [search, setSearch] = useState("");
-    const [visible, setVisible, toggleVisible, align] = useVisible(innerRef, dropdownRef, disabled, stretch, `.${prefixCls}-box`);
-    const [value, onSelect, onUnSelect] = useValue(props, setVisible, align);
-    const [options, onOptionAdd, onOptionRemove, getOptionCfg] = useOptions(multiple);
-    const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible);
+    let align = useRef<Function>(null);
+    const [visible, setVisible] = useVisible(innerRef);
+    const [value, onSelect, onUnSelect, search, searchHandle] = useValue(props, setVisible, align);
+    const [options, optionsContextRef, getOptionCfg] = useOptions(multiple);
+    const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible, multiple, searchMode);
     const classString = classNames(prefixCls, className, `${prefixCls}-${multiple ? "multiple" : "single"}`, {
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-visible`]: visible,
@@ -37,39 +39,47 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
         setEmpty(_empy);
     });
 
-    function searchHandle(val: string) {
-        setSearch(val);
-        if (onSearch) {
-            onSearch(val);
-        }
-    }
-
     // 搜索改变后也要重新对齐
     useLayoutEffect(() => {
-        align();
+        if (align.current) {
+            align.current(false);
+        }
     }, [search]);
 
+    // const renderDropdown = useCallback(() => {
+    //     return (
+    //         <Dropdown prefixCls={prefixCls} empty={empty} placeholder={empyPlaceholder} scrollwrapRef={scrollwrapRef}>
+    //             <OptionStateContext.Provider value={{ focusValue, filter, search }}>
+    //                 <OptionsContext.Provider value={optionsContextRef.current}>{children}</OptionsContext.Provider>
+    //             </OptionStateContext.Provider>
+    //         </Dropdown>
+    //     );
+    // }, [focusValue, filter, search, empty, children]);
+
+    function renderDropdown() {
+        return (
+            <OptionStateContext.Provider value={{ focusValue, filter, search }}>
+                <OptionsContext.Provider value={optionsContextRef.current}>
+                    <Dropdown prefixCls={prefixCls} empty={empty} placeholder={empyPlaceholder} scrollwrapRef={scrollwrapRef}>
+                        {children}
+                    </Dropdown>
+                </OptionsContext.Provider>
+            </OptionStateContext.Provider>
+        );
+    }
+
     return (
-        <SelectContext.Provider value={{ value, filter, search, options, onOptionAdd, onOptionRemove, onSelect, focusValue, multiple, onUnSelect }}>
-            <div className={classString} style={style} onBlur={onBlur} ref={innerRef}>
-                <SelectBox
-                    prefixCls={prefixCls}
-                    autoFocus={autoFocus}
-                    tabIndex={tabIndex}
-                    multiple={multiple}
-                    selectedCfg={selectedCfg}
-                    placeholder={placeholder}
-                    onClick={toggleVisible}
-                    onKeyDown={handleKeyPress}
-                    searchContent={searchMode && <SelectSearch prefixCls={prefixCls} visible={visible} search={search} onSearchChange={searchHandle} />}
-                >
-                    <SelectBoxContent prefixCls={prefixCls} selectedCfg={selectedCfg} />
-                </SelectBox>
-            </div>
-            <Dropdown popupClassName={popupClassName} prefixCls={prefixCls} empty={empty} visible={visible} placeholder={empyPlaceholder} dropdownRef={dropdownRef} scrollwrapRef={scrollwrapRef}>
-                {children}
-            </Dropdown>
-        </SelectContext.Provider>
+        <ValueContext.Provider value={{ value, onSelect, onUnSelect }}>
+            <Trigger prefixCls={`${prefixCls}-transition`} visible={visible} onChange={setVisible} alignRef={align} action={ACTION} popupAlign={POPUPALIGN} popupClassName={popupClassName} stretch={stretch} popup={renderDropdown()}>
+                <div className={classString} style={style}>
+                    <div ref={innerRef}>
+                        <SelectBox multiple={multiple} selectedCfg={selectedCfg} placeholder={placeholder} onKeyDown={handleKeyPress}>
+                            {searchMode && <SelectSearch prefixCls={prefixCls} visible={visible} search={search} onSearchChange={searchHandle} />}
+                        </SelectBox>
+                    </div>
+                </div>
+            </Trigger>
+        </ValueContext.Provider>
     );
 });
 

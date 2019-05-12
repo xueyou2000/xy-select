@@ -16,7 +16,7 @@ describe("Select", () => {
         const wrapper = render(
             <Select disabled={true}>
                 <Option>a</Option>
-            </Select>
+            </Select>,
         );
         const selectBox = wrapper.container.querySelector(".xy-select-box");
         expect(selectBox.classList.contains("xy-select-visible")).toBeFalsy();
@@ -36,7 +36,7 @@ describe("Select", () => {
                 <Option>a1</Option>
                 <Option>b1</Option>
                 <Option>c1</Option>
-            </Select>
+            </Select>,
         );
 
         const options = document.body.querySelectorAll(".xy-select-dropdown .xy-option");
@@ -53,7 +53,7 @@ describe("Select", () => {
                 <Option>a1</Option>
                 <Option>b1</Option>
                 <Option>c1</Option>
-            </Select>
+            </Select>,
         );
         const selectBox = wrapper.container.querySelector(".xy-select-box");
         fireEvent.click(selectBox);
@@ -79,16 +79,15 @@ describe("Select", () => {
                 <Option>a1</Option>
                 <Option>b1</Option>
                 <Option>c1</Option>
-            </Select>
+            </Select>,
         );
 
         let items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");
         expect([].map.call(items, (x) => x.textContent)).toEqual(["c"]);
-        jest.useFakeTimers();
         const _items = wrapper.container.querySelectorAll(".xy-select-item");
         // 点击后要模拟300毫秒后才生效， 因为要等待关闭动画
         fireEvent.click(_items[0].querySelector(".xy-select-item__remove"));
-        jest.advanceTimersByTime(320);
+        fireEvent.transitionEnd(_items[0]);
         items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");
         expect(items.length).toEqual(0);
 
