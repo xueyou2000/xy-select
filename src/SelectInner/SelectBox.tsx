@@ -9,7 +9,7 @@ import SelectBoxContent from "./SelectBoxContent";
  *   - 处理键盘事件转发
  *   - 处理占位符文本
  */
-export function SelectBox(props: SelectBoxProps) {
+export const SelectBox = React.forwardRef((props: SelectBoxProps, ref: React.MutableRefObject<any>) => {
     const { prefixCls = "xy-select-box", className, style, selectedCfg, children, multiple, onClick, onKeyDown, onFocus, onBlur } = props;
     const classString = classNames(prefixCls, className, {
         [`${prefixCls}-multiple`]: multiple,
@@ -19,7 +19,7 @@ export function SelectBox(props: SelectBoxProps) {
     const notEmpty = multiple ? selectedCfg && (selectedCfg as any).length > 0 : selectedCfg;
 
     return (
-        <div className={classString} style={style} onClick={onClick} onKeyDown={onKeyDown} tabIndex={0} onFocus={onFocus} onBlur={onBlur}>
+        <div className={classString} style={style} onClick={onClick} onKeyDown={onKeyDown} tabIndex={0} onFocus={onFocus} onBlur={onBlur} ref={ref}>
             <div className={`${prefixCls}__rendered`}>
                 {notEmpty ? <SelectBoxContent multiple={multiple} selectedCfg={selectedCfg} /> : placeholder}
                 {children}
@@ -29,6 +29,6 @@ export function SelectBox(props: SelectBoxProps) {
             </span>
         </div>
     );
-}
+});
 
 export default React.memo(SelectBox);

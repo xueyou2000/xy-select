@@ -10,10 +10,10 @@ export default function useNnavigate(
     value: any,
     selectValue: (val: any) => void,
     setVisible: (vis: boolean) => void,
-    multiple: boolean,
     searchMode: boolean,
+    multiple?: boolean
 ): [any, (e: React.KeyboardEvent<HTMLElement>) => void, React.MutableRefObject<any>] {
-    const [focusValue, setFocusValue] = useState(multiple ? null : value && value.length > 0 ? value[0] : value);
+    const [focusValue, setFocusValue] = useState(multiple ? null : value instanceof Array && value.length > 0 ? value[0] : value);
     const scrollwrapRef = useRef(null);
     const handleKeyDown = useCallback(
         CreateNnavigateHandle({
@@ -45,21 +45,10 @@ export default function useNnavigate(
             },
             onPrev: () => {
                 setNextFocus();
-            },
-        }),
-        [focusValue, value],
-    );
-
-    function restoreFocus(e: KeyboardEvent) {
-        const selectBox = e.currentTarget as HTMLElement;
-        if (selectBox) {
-            if (searchMode) {
-                selectBox.querySelector("input").focus();
-            } else {
-                selectBox.focus();
             }
-        }
-    }
+        }),
+        [focusValue, value]
+    );
 
     function setNextFocus(isnext = true) {
         const opts = options.current.filter((x) => !x.disabled && !x.filtered);

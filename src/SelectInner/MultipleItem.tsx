@@ -16,6 +16,7 @@ export function MultipleItem(props: SelectItemProps) {
     const classString = classNames(`${prefixCls}`, className, {
         [`${prefixCls}-tag`]: true,
         [`${prefixCls}-out`]: closeing,
+        [`${prefixCls}-state-${state}`]: true
     });
 
     useEffect(() => {

@@ -24,12 +24,12 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
     const [visible, setVisible] = useVisible(innerRef);
     const [value, onSelect, onUnSelect, search, searchHandle] = useValue(props, setVisible, align);
     const [options, optionsContextRef, getOptionCfg] = useOptions(multiple);
-    const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible, multiple, searchMode);
+    const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible, searchMode, multiple);
     const classString = classNames(prefixCls, className, `${prefixCls}-${multiple ? "multiple" : "single"}`, {
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-visible`]: visible,
         [`${prefixCls}-searchMode`]: searchMode,
-        [`${prefixCls}-hide-item`]: search !== "",
+        [`${prefixCls}-hide-item`]: search !== ""
     });
     const selectedCfg = getOptionCfg(value);
     const [empty, setEmpty] = useState(false);
@@ -45,16 +45,6 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
             align.current(false);
         }
     }, [search]);
-
-    // const renderDropdown = useCallback(() => {
-    //     return (
-    //         <Dropdown prefixCls={prefixCls} empty={empty} placeholder={empyPlaceholder} scrollwrapRef={scrollwrapRef}>
-    //             <OptionStateContext.Provider value={{ focusValue, filter, search }}>
-    //                 <OptionsContext.Provider value={optionsContextRef.current}>{children}</OptionsContext.Provider>
-    //             </OptionStateContext.Provider>
-    //         </Dropdown>
-    //     );
-    // }, [focusValue, filter, search, empty, children]);
 
     function renderDropdown() {
         return (
@@ -72,11 +62,9 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
         <ValueContext.Provider value={{ value, onSelect, onUnSelect }}>
             <Trigger prefixCls={`${prefixCls}-transition`} visible={visible} onChange={setVisible} alignRef={align} action={ACTION} popupAlign={POPUPALIGN} popupClassName={popupClassName} stretch={stretch} popup={renderDropdown()}>
                 <div className={classString} style={style}>
-                    <div ref={innerRef}>
-                        <SelectBox multiple={multiple} selectedCfg={selectedCfg} placeholder={placeholder} onKeyDown={handleKeyPress}>
-                            {searchMode && <SelectSearch prefixCls={prefixCls} visible={visible} search={search} onSearchChange={searchHandle} />}
-                        </SelectBox>
-                    </div>
+                    <SelectBox multiple={multiple} selectedCfg={selectedCfg} placeholder={placeholder} onKeyDown={handleKeyPress} ref={innerRef}>
+                        {searchMode && <SelectSearch prefixCls={prefixCls} visible={visible} search={search} onSearchChange={searchHandle} />}
+                    </SelectBox>
                 </div>
             </Trigger>
         </ValueContext.Provider>

@@ -8543,11 +8543,6 @@ utils-dom@0.0.57:
   resolved "https://registry.npm.taobao.org/utils-dom/download/utils-dom-0.0.57.tgz#f04896e87370a7f6b0507c8b5d2bd9edcc6c313d"
   integrity sha1-8EiW6HNwp/awUHyLXSvZ7cxsMT0=
 
-utils-dom@0.0.63:
-  version "0.0.63"
-  resolved "https://registry.npm.taobao.org/utils-dom/download/utils-dom-0.0.63.tgz#025cd817068691a18cc8e49a295a7c0df5850830"
-  integrity sha1-AlzYFwaGkaGMyOSaKVp8DfWFCDA=
-
 utils-dom@0.0.65:
   version "0.0.65"
   resolved "https://registry.npm.taobao.org/utils-dom/download/utils-dom-0.0.65.tgz#4fcd6e289f9eae65b1d0598388e1b2c2f604b8ae"
@@ -8562,11 +8557,6 @@ utils-hooks@0.0.65, utils-hooks@^0.0.65:
   version "0.0.65"
   resolved "https://registry.npm.taobao.org/utils-hooks/download/utils-hooks-0.0.65.tgz#abb9e24413ebee7ef3e563b1967e890ba4e077dc"
   integrity sha1-q7niRBPr7n7z5WOxln6JC6Tgd9w=
-
-utils-hooks@0.0.69:
-  version "0.0.69"
-  resolved "https://registry.npm.taobao.org/utils-hooks/download/utils-hooks-0.0.69.tgz#b711fb1aaea7056f3ad662db5e71cfd034ca71af"
-  integrity sha1-txH7Gq6nBW861mLbXnHP0DTKca8=
 
 utils-hooks@0.0.71:
   version "0.0.71"
@@ -9103,15 +9093,15 @@ xy-model@^0.0.2:
     utils-hooks "^0.0.65"
     xy-messagebox "^0.0.4"
 
-xy-trigger@0.0.93:
-  version "0.0.93"
-  resolved "https://registry.npm.taobao.org/xy-trigger/download/xy-trigger-0.0.93.tgz#38c5cea414825a9bd418c702b83da100d9e594c2"
-  integrity sha1-OMXOpBSCWpvUGMcCuD2hANnllMI=
+xy-trigger@0.0.94:
+  version "0.0.94"
+  resolved "https://registry.npm.taobao.org/xy-trigger/download/xy-trigger-0.0.94.tgz#e4f8adcc5b8f727433fcff8839a52986ec7ecf23"
+  integrity sha1-5PitzFuPcnQz/P+IOaUphux+zyM=
   dependencies:
     classnames "^2.2.6"
     react "^16.8.2"
     react-dom "^16.8.2"
-    utils-dom "0.0.63"
+    utils-dom "0.0.65"
     utils-hooks "0.0.71"
 
 y18n@^3.2.1:
