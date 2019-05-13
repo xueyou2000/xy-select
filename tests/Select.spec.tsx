@@ -16,7 +16,7 @@ describe("Select", () => {
         const wrapper = render(
             <Select disabled={true}>
                 <Option>a</Option>
-            </Select>,
+            </Select>
         );
         const selectBox = wrapper.container.querySelector(".xy-select-box");
         expect(selectBox.classList.contains("xy-select-visible")).toBeFalsy();
@@ -36,10 +36,10 @@ describe("Select", () => {
                 <Option>a1</Option>
                 <Option>b1</Option>
                 <Option>c1</Option>
-            </Select>,
+            </Select>
         );
 
-        const options = document.body.querySelectorAll(".xy-select-dropdown .xy-option");
+        const options = document.body.querySelectorAll(".xy-select-dropdown .xy-option:not(.filtered)");
         expect([].map.call(options, (x) => x.textContent)).toEqual(["a", "b", "c"]);
     });
 
@@ -53,13 +53,13 @@ describe("Select", () => {
                 <Option>a1</Option>
                 <Option>b1</Option>
                 <Option>c1</Option>
-            </Select>,
+            </Select>
         );
         const selectBox = wrapper.container.querySelector(".xy-select-box");
         fireEvent.click(selectBox);
         const input = selectBox.querySelector(".xy-select-search__field");
         fireEvent.change(input, { target: { value: "a" } });
-        const options = document.body.querySelectorAll(".xy-select-dropdown .xy-option");
+        const options = document.body.querySelectorAll(".xy-select-dropdown .xy-option:not(.filtered)");
         expect([].map.call(options, (x) => x.textContent)).toEqual(["a", "a1"]);
         expect(onSearch.mock.calls.length).toBe(2);
         expect(onSearch.mock.calls[1][0]).toBe("a");
@@ -79,7 +79,7 @@ describe("Select", () => {
                 <Option>a1</Option>
                 <Option>b1</Option>
                 <Option>c1</Option>
-            </Select>,
+            </Select>
         );
 
         let items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");

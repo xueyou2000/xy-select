@@ -38,7 +38,7 @@ export function Option(props: OptionProps) {
         [`${prefixCls}-checked`]: getContextChecked(),
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-divided`]: divided,
-        [`${prefixCls}-focus`]: stateContext && stateContext.focusValue === value,
+        [`${prefixCls}-focus`]: stateContext && stateContext.focusValue === value
     });
     const cfg = useRef<OptionConfig>({ value, label, disabled, filtered: false });
     const filtered = stateContext ? useHasFiltered(cfg.current, stateContext.filter, stateContext.search) : false;
@@ -75,11 +75,8 @@ export function Option(props: OptionProps) {
         e.stopPropagation();
     }
 
-    if (filtered) {
-        return null;
-    }
     return (
-        <li className={classString} style={style} title={label} data-value={value} onClick={clickHandle}>
+        <li className={classNames(classString, { filtered })} style={style} title={label} data-value={value} onClick={clickHandle}>
             {children}
         </li>
     );

@@ -11,7 +11,7 @@ describe("Option", () => {
         const wrapper = render(
             <OptionsContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: removeFn }}>
                 <Option value="1">选项一</Option>
-            </OptionsContext.Provider>,
+            </OptionsContext.Provider>
         );
         const option = wrapper.getByText("选项一");
         expect(option.classList.contains("xy-option-checked")).toBeFalsy();
@@ -31,7 +31,7 @@ describe("Option", () => {
                     <Option value="bb">普通选项</Option>
                     <Option value="cc">焦点选项</Option>
                 </OptionStateContext.Provider>
-            </OptionsContext.Provider>,
+            </OptionsContext.Provider>
         );
         const option1 = wrapper.getByText("普通选项");
         expect(option1.classList.contains("xy-option-focus")).toBeFalsy();
@@ -49,7 +49,7 @@ describe("Option", () => {
         render(
             <OptionsContext.Provider value={{ onOptionAdd: addFn, onOptionRemove: jest.fn() }}>
                 <Option>武汉</Option>
-            </OptionsContext.Provider>,
+            </OptionsContext.Provider>
         );
 
         expect(cfg.value).toBe("武汉");
@@ -67,7 +67,7 @@ describe("Option", () => {
                     <Option value="a">选项1</Option>
                     <Option value="b">选项2</Option>
                 </ValueContext.Provider>
-            </OptionsContext.Provider>,
+            </OptionsContext.Provider>
         );
 
         fireEvent.click(wrapper.getByText("选项1"));
@@ -90,13 +90,13 @@ describe("Option", () => {
                     <Option value="a">选项1</Option>
                     <Option value="b">选项2</Option>
                 </OptionStateContext.Provider>
-            </OptionsContext.Provider>,
+            </OptionsContext.Provider>
         );
 
         const option2 = wrapper.container.querySelector('[data-value="b"]');
 
         expect(wrapper.getByText("选项1")).toBeDefined();
-        expect(option2).toBeNull();
+        expect(option2.classList.contains("filtered")).toBeTruthy();
         expect(filter).toBeCalled();
     });
 
@@ -109,12 +109,12 @@ describe("Option", () => {
                     <Option value="a">选项1</Option>
                     <Option value="b">选项2</Option>
                 </OptionStateContext.Provider>
-            </OptionsContext.Provider>,
+            </OptionsContext.Provider>
         );
 
         expect(wrapper.getByText("选项1")).toBeDefined();
         const option2 = wrapper.container.querySelector('[data-value="b"]');
-        expect(option2).toBeNull();
+        expect(option2.classList.contains("filtered")).toBeTruthy();
     });
 
     test("Disabled ClassName", () => {
@@ -123,7 +123,7 @@ describe("Option", () => {
                 <Option disabled={true} value="1">
                     选项一
                 </Option>
-            </OptionsContext.Provider>,
+            </OptionsContext.Provider>
         );
         const option = wrapper.getByText("选项一");
         expect(option.classList.contains("xy-option-disabled")).toBeTruthy();
@@ -135,7 +135,7 @@ describe("Option", () => {
                 <Option divided={true} value="1">
                     选项一
                 </Option>
-            </OptionsContext.Provider>,
+            </OptionsContext.Provider>
         );
         const option = wrapper.getByText("选项一");
         expect(option.classList.contains("xy-option-divided")).toBeTruthy();
@@ -145,7 +145,7 @@ describe("Option", () => {
         const wrapper = render(
             <OptionsContext.Provider value={{ onOptionAdd: jest.fn(), onOptionRemove: jest.fn() }}>
                 <OptGroup label="选项组" />
-            </OptionsContext.Provider>,
+            </OptionsContext.Provider>
         );
 
         const optGroup = wrapper.container.querySelector(".xy-optgroup");

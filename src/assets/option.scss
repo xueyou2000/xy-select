@@ -49,3 +49,6 @@ $OptionWarpPrefixCls: "xy-option";
     margin-top: 5px;
     border-top: 1px solid #e9eaec;
 }
+.#{$OptionWarpPrefixCls}.filtered {
+    display: none;
+}
