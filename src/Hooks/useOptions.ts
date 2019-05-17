@@ -44,6 +44,9 @@ export default function useOptions(multiple: boolean): UseOptionsReturn {
     function getOptionCfg(value: any) {
         if (multiple) {
             const cfgs = [];
+            if (!value) {
+                return cfgs;
+            }
             value.forEach((val) => {
                 var cfg = cacheSelectCfg.current.get(val);
                 if (cfg) {

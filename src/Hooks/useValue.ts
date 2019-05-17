@@ -44,6 +44,10 @@ export default function useValue(props: SelectProps, setVisible: (v: boolean) =>
             return;
         }
         if (multiple) {
+            if (!value) {
+                setSelectedValue([val]);
+                return;
+            }
             const i = value.findIndex((x) => x === val);
             if (i === -1) {
                 setSelectedValue([...value, val]);
