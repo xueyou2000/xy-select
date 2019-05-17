@@ -38,6 +38,11 @@ $BoxWarpPrefixCls: "xy-select-box";
     border-width: 0;
     border-radius: 4px;
     outline: 0;
+    box-sizing: border-box;
+
+    &[disabled] {
+        cursor: text;
+    }
 }
 .#{$BoxWarpPrefixCls}__rendered {
     position: relative;
