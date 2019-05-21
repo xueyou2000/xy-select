@@ -9,10 +9,13 @@ type UseVisibleReturn = [boolean, (v: boolean, event?: MouseEvent) => void];
  * @param disabled  是否禁用
  * @param blurClassSelector 关闭时需要设置焦点的选择器
  */
-export default function useVisible(innerRef: React.MutableRefObject<any>): UseVisibleReturn {
+export default function useVisible(innerRef: React.MutableRefObject<any>, disabled: boolean): UseVisibleReturn {
     const [visible, setVisible] = useState(false);
 
     function changeVisible(v: boolean, event?: MouseEvent) {
+        if (disabled) {
+            return;
+        }
         const element = innerRef.current as HTMLElement;
         const target = event && (event.target as HTMLElement);
 

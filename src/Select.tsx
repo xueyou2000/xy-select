@@ -21,7 +21,7 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
         innerRef = useRef(null);
     }
     let align = useRef<Function>(null);
-    const [visible, setVisible] = useVisible(innerRef);
+    const [visible, setVisible] = useVisible(innerRef, disabled);
     const [value, onSelect, onUnSelect, search, searchHandle] = useValue(props, setVisible, align);
     const [options, optionsContextRef, getOptionCfg] = useOptions(multiple);
     const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible, searchMode, multiple);
