@@ -14,20 +14,12 @@ export function Dropdown(props: DropdownProps) {
     const dropdownPrefixCls = `${prefixCls}-dropdown`;
     const classString = classNames(dropdownPrefixCls, className);
 
-    // function renderContent() {
-    //     if (empty) {
-    //         return <Empty description={placeholder} />;
-    //     } else {
-    //         return children || <Empty description={placeholder} />;
-    //     }
-    // }
-
     return (
         <div className={classString} style={style}>
             <div className={`${dropdownPrefixCls}__scrollwrap`} ref={scrollwrapRef}>
                 <ul role="listbox" className={`${dropdownPrefixCls}__menu`}>
                     {<div style={{ display: empty ? "none" : null }}>{children}</div>}
-                    {(empty || !children) && <Empty description={placeholder} />}
+                    {(empty || (!children || React.Children.count(children) === 0)) && <Empty description={placeholder} />}
                 </ul>
             </div>
         </div>

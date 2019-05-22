@@ -1,6 +1,6 @@
 {
     "name": "xy-select",
-    "version": "1.0.83",
+    "version": "1.0.84",
     "description": "基于React的下拉列表组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",
