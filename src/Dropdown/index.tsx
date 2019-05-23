@@ -18,7 +18,7 @@ export function Dropdown(props: DropdownProps) {
         <div className={classString} style={style}>
             <div className={`${dropdownPrefixCls}__scrollwrap`} ref={scrollwrapRef}>
                 <ul role="listbox" className={`${dropdownPrefixCls}__menu`}>
-                    {<div style={{ display: empty ? "none" : null }}>{children}</div>}
+                    {<div style={{ display: empty || !children || React.Children.count(children) === 0 ? "none" : null }}>{children}</div>}
                     {(empty || (!children || React.Children.count(children) === 0)) && <Empty description={placeholder} />}
                 </ul>
             </div>

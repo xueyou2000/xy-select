@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.85 (Thu May 23 2019)
+
+-   修复`Dropdown`将`display: none`隐藏的逻辑，避免同时出现空状态和 children
+
 ## 1.0.84 (Wed May 22 2019)
 
 -   修复当 options 集合为空数组时, 下拉列表不会使用空状态组件, 导致下拉列表无任何内容
