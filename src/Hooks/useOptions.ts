@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useForceUpdate, useMount } from "utils-hooks";
+import { useForceUpdate, useMount, useUpdateEffect } from "utils-hooks";
 import { OptionConfig, OptionsContextState } from "../interface";
 
 type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, React.MutableRefObject<OptionsContextState>, (val: any) => OptionConfig | OptionConfig[], React.MutableRefObject<Map<any, OptionConfig>>];
@@ -10,11 +10,12 @@ type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, React.MutableRe
  * @param {boolean} multiple    是否多选
  * @returns UseOptionsReturn
  */
-export default function useOptions(multiple: boolean): UseOptionsReturn {
+export default function useOptions(multiple: boolean, children?: React.ReactNode): UseOptionsReturn {
     const options = useRef<OptionConfig[]>([]);
     const cacheSelectCfg = useRef(new Map<any, OptionConfig>());
     const optionsContextRef = useRef<OptionsContextState>({ onOptionAdd, onOptionRemove });
     const update = useForceUpdate();
+    const lastSelectedCfg = useRef<OptionConfig | OptionConfig[]>(null);
 
     /**
      * 添加option
@@ -59,10 +60,23 @@ export default function useOptions(multiple: boolean): UseOptionsReturn {
         }
     }
 
+    function _getOptionCfg(value: any) {
+        const selectedCfg = getOptionCfg(value);
+        lastSelectedCfg.current = selectedCfg;
+        return selectedCfg;
+    }
+
+    useUpdateEffect(() => {
+        if (!lastSelectedCfg.current) {
+            // 更新 SelectBox 显示的label
+            update();
+        }
+    }, [children]);
+
     // Tips: 这里主要是为了初次 options 收集完毕后, 重新渲染SelectInner
     useMount(() => {
         update();
     });
 
-    return [options, optionsContextRef, getOptionCfg, cacheSelectCfg];
+    return [options, optionsContextRef, _getOptionCfg, cacheSelectCfg];
 }

@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.86 (Tue Jul 09 2019)
+
+-   下拉列表 options 变动后, `SelectBox`的 label 也需要更新
+
 ## 1.0.85 (Thu May 23 2019)
 
 -   修复`Dropdown`将`display: none`隐藏的逻辑，避免同时出现空状态和 children

@@ -23,14 +23,14 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
     let align = useRef<Function>(null);
     const [visible, setVisible] = useVisible(innerRef, disabled);
     const [value, onSelect, onUnSelect, search, searchHandle] = useValue(props, setVisible, align);
-    const [options, optionsContextRef, getOptionCfg] = useOptions(multiple);
+    const [options, optionsContextRef, getOptionCfg] = useOptions(multiple, children);
     const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible, searchMode, multiple);
     const classString = classNames(prefixCls, className, `${prefixCls}-${multiple ? "multiple" : "single"}`, {
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-visible`]: visible,
         [`${prefixCls}-searchMode`]: searchMode,
         [`${prefixCls}-hide-item`]: search !== "",
-        [`${prefixCls}-has-value`]: multiple ? value && value.length > 0 : !!value
+        [`${prefixCls}-has-value`]: multiple ? value && value.length > 0 : !!value,
     });
     const selectedCfg = getOptionCfg(value);
     const [empty, setEmpty] = useState(false);
@@ -39,6 +39,8 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
         const _empty = options.current.filter((x) => !x.disabled && !x.filtered).length === 0 && search !== "";
         setEmpty(_empty);
     });
+
+    // TODO: #1 上一次没有合适的 label 中文显示， 当childer的options改变后, 如果有合适的，就强制更新
 
     // 搜索改变后也要重新对齐
     useLayoutEffect(() => {
