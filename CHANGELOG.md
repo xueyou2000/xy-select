@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.87 (Wed Sep 04 2019)
+
+-   清除控制台打印, 优化代码警告
+
 ## 1.0.86 (Tue Jul 09 2019)
 
 -   下拉列表 options 变动后, `SelectBox`的 label 也需要更新

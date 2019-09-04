@@ -23,7 +23,7 @@
 
 ```bash
 # yarn
-yarn add xy-select utils-dom utils-hooks xy-empty classnames
+yarn add xy-select
 ```
 
 ## 使用例子
@@ -44,7 +44,7 @@ ReactDOM.render(
             <Option value="GO">GO</Option>
         </OptGroup>
     </Select>,
-    container
+    container,
 );
 ```
 

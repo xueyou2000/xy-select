@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, act } from "react-testing-library";
+import { render, fireEvent, act } from "@testing-library/react";
 import { Select, OptGroup, Option, SelectLocal } from "../src";
 import { OptionConfig } from "../src/interface";
 
@@ -16,7 +16,7 @@ describe("Select", () => {
         const wrapper = render(
             <Select disabled={true}>
                 <Option>a</Option>
-            </Select>
+            </Select>,
         );
         const selectBox = wrapper.container.querySelector(".xy-select-box");
         expect(selectBox.classList.contains("xy-select-visible")).toBeFalsy();
@@ -36,7 +36,7 @@ describe("Select", () => {
                 <Option>a1</Option>
                 <Option>b1</Option>
                 <Option>c1</Option>
-            </Select>
+            </Select>,
         );
 
         const options = document.body.querySelectorAll(".xy-select-dropdown .xy-option:not(.filtered)");
@@ -53,7 +53,7 @@ describe("Select", () => {
                 <Option>a1</Option>
                 <Option>b1</Option>
                 <Option>c1</Option>
-            </Select>
+            </Select>,
         );
         const selectBox = wrapper.container.querySelector(".xy-select-box");
         fireEvent.click(selectBox);
@@ -79,7 +79,7 @@ describe("Select", () => {
                 <Option>a1</Option>
                 <Option>b1</Option>
                 <Option>c1</Option>
-            </Select>
+            </Select>,
         );
 
         let items = wrapper.container.querySelectorAll(".xy-select-item .xy-select-item__content");

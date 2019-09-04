@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "@testing-library/react";
 import { Select, OptGroup, Option, Dropdown, SelectLocal, OptionsContext, OptionStateContext, ValueContext } from "../src";
 import { OptionConfig } from "../src/interface";
 import { EXITED, ENTERING, ENTERED } from "utils-hooks";
