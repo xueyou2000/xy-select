@@ -36,7 +36,10 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
     const [empty, setEmpty] = useState(false);
 
     useUpdateEffect(() => {
-        const _empty = options.current.filter((x) => !x.disabled && !x.filtered).length === 0 && search !== "";
+        let _empty = options.current.filter((x) => !x.disabled && !x.filtered).length === 0 && search !== "";
+        if (!searchMode && options.current.length === 0) {
+            _empty = true;
+        }
         setEmpty(_empty);
     });
 
