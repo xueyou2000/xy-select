@@ -2,7 +2,12 @@ import { useRef } from "react";
 import { useForceUpdate, useMount, useUpdateEffect } from "utils-hooks";
 import { OptionConfig, OptionsContextState } from "../interface";
 
-type UseOptionsReturn = [React.MutableRefObject<OptionConfig[]>, React.MutableRefObject<OptionsContextState>, (val: any) => OptionConfig | OptionConfig[], React.MutableRefObject<Map<any, OptionConfig>>];
+type UseOptionsReturn = [
+    React.MutableRefObject<OptionConfig[]>,
+    React.MutableRefObject<OptionsContextState>,
+    (val: any) => OptionConfig | OptionConfig[],
+    React.MutableRefObject<Map<any, OptionConfig>>,
+];
 
 /**
  * 管理select内声明的option
@@ -69,6 +74,8 @@ export default function useOptions(multiple: boolean, children?: React.ReactNode
     useUpdateEffect(() => {
         if (!lastSelectedCfg.current) {
             // 更新 SelectBox 显示的label
+            // 同步最新得options到缓存里
+            options.current.forEach((x) => cacheSelectCfg.current.set(x.value, x));
             update();
         }
     }, [children]);

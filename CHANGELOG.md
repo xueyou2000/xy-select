@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.0 (Thu Sep 12 2019)
+
+-   修复动态改变`Select`内容，`Option`变化后，缓存没有更新
+
 ## 1.0.9 (Thu Sep 05 2019)
 
 -   修复`Select`内容有`false`等特殊值的情况，不认为是空集合
