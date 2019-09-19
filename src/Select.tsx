@@ -16,12 +16,29 @@ const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true } };
 
 export const Select = React.forwardRef((props: SelectProps, innerRef: React.MutableRefObject<any>) => {
-    const { prefixCls = "xy-select", className, style, children, multiple, stretch = true, popupClassName, searchMode = false, filter, disabled = false, placeholder, empyPlaceholder, onBlur } = props;
+    const {
+        prefixCls = "xy-select",
+        className,
+        style,
+        children,
+        multiple,
+        stretch = true,
+        popupClassName,
+        searchMode = false,
+        filter,
+        disabled = false,
+        placeholder,
+        empyPlaceholder,
+        onBlur,
+    } = props;
     if (!innerRef) {
         innerRef = useRef(null);
     }
     let align = useRef<Function>(null);
-    const [visible, setVisible] = useVisible(innerRef, disabled);
+    // 由于 Trigger 的实现是用监听原生dom, 所以触发事件后, 事件处理函数所处的prop都是原来的
+    const disabledRef = useRef(disabled);
+    disabledRef.current = disabled;
+    const [visible, setVisible] = useVisible(innerRef, disabledRef);
     const [value, onSelect, onUnSelect, search, searchHandle] = useValue(props, setVisible, align);
     const [options, optionsContextRef, getOptionCfg] = useOptions(multiple, children);
     const [focusValue, handleKeyPress, scrollwrapRef] = useNnavigate(options, value, onSelect, setVisible, searchMode, multiple);
@@ -66,7 +83,17 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
 
     return (
         <ValueContext.Provider value={{ value, onSelect, onUnSelect }}>
-            <Trigger prefixCls={`${prefixCls}-transition`} visible={visible} onChange={setVisible} alignRef={align} action={ACTION} popupAlign={POPUPALIGN} popupClassName={popupClassName} stretch={stretch} popup={renderDropdown()}>
+            <Trigger
+                prefixCls={`${prefixCls}-transition`}
+                visible={visible}
+                onChange={setVisible}
+                alignRef={align}
+                action={ACTION}
+                popupAlign={POPUPALIGN}
+                popupClassName={popupClassName}
+                stretch={stretch}
+                popup={renderDropdown()}
+            >
                 <div className={classString} style={style}>
                     <SelectBox multiple={multiple} selectedCfg={selectedCfg} placeholder={placeholder} onKeyDown={handleKeyPress} onBlur={onBlur} ref={innerRef}>
                         {searchMode && <SelectSearch prefixCls={prefixCls} visible={visible} search={search} onSearchChange={searchHandle} />}
