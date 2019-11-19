@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.2.0 (Tue Nov 19 2019)
+
+-   修复`react`与`react-dom`版本不一致导致的问题
+-   测试库迁移到`@testing-library/react"`
+
 ## 1.1.1 (Thu Sep 19 2019)
 
 -   修复禁用后，再解除禁用不能打开下拉列表

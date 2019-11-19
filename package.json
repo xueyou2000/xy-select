@@ -1,6 +1,6 @@
 {
     "name": "xy-select",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "基于React的下拉列表组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",
@@ -43,19 +43,19 @@
         "@types/react": "16.9.2",
         "@types/react-dom": "16.9.0",
         "@types/shallowequal": "^1.1.1",
-        "quick-react-scripts": "^1.2.3",
-        "xy-manual-tools": "^0.1.66"
+        "quick-react-scripts": "^1.3.2",
+        "xy-manual-tools": "^0.3.0"
     },
     "dependencies": {
         "@fortawesome/free-solid-svg-icons": "^5.10.2",
         "@fortawesome/react-fontawesome": "^0.1.4",
         "classnames": "^2.2.6",
-        "react": "^16.9.0",
-        "react-dom": "^16.9.0",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
         "utils-dom": "^0.0.70",
         "utils-hooks": "^0.0.71",
-        "xy-empty": "^0.0.9",
-        "xy-trigger": "^0.0.94"
+        "xy-empty": "^0.1.0",
+        "xy-trigger": "^0.1.0"
     },
     "repository": {
         "type": "git",
