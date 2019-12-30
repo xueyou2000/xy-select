@@ -1,10 +1,10 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import React, { useContext, useEffect, useState } from "react";
 import { EXITED, useTranstion } from "utils-hooks";
 import { ValueContext } from "../Context";
 import { SelectItemProps } from "../interface";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function MultipleItem(props: SelectItemProps) {
     const { className, style, children, value } = props;
@@ -16,7 +16,7 @@ export function MultipleItem(props: SelectItemProps) {
     const classString = classNames(`${prefixCls}`, className, {
         [`${prefixCls}-tag`]: true,
         [`${prefixCls}-out`]: closeing,
-        [`${prefixCls}-state-${state}`]: true
+        [`${prefixCls}-state-${state}`]: true,
     });
 
     useEffect(() => {

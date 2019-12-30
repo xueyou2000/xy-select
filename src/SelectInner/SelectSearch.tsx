@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
-import { useControll } from "utils-hooks";
+import React, { useCallback, useEffect, useRef } from "react";
 import { SelectBoxSearchProps } from "../interface";
 
 export function SelectSearch(props: SelectBoxSearchProps) {

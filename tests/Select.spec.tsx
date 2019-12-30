@@ -1,12 +1,13 @@
+import { fireEvent, render } from "@testing-library/react";
 import React from "react";
-import { render, fireEvent, act } from "@testing-library/react";
-import { Select, OptGroup, Option, SelectLocal } from "../src";
+import { Option, Select } from "../src";
 import { OptionConfig } from "../src/interface";
+import Zh from "../src/local/zh";
 
 describe("Select", () => {
     test("Not Children", () => {
         const wrapper = render(<Select empyPlaceholder="没有数据" />);
-        const placeholder = wrapper.getByText(SelectLocal.selectBoxPlaceholder);
+        const placeholder = wrapper.getByText(Zh.Select.placeholder);
         expect(placeholder).toBeDefined();
         const description = document.body.querySelector(".xy-empty-description");
         expect(description.textContent).toBe("没有数据");

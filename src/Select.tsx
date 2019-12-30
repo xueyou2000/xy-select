@@ -1,36 +1,22 @@
 import classNames from "classnames";
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { TriggerAction, useUpdateEffect } from "utils-hooks";
 import Trigger from "xy-trigger";
-import { OptionsContext, ValueContext, OptionStateContext } from "./Context";
+import { OptionsContext, OptionStateContext, ValueContext } from "./Context";
 import Dropdown from "./Dropdown";
+import useNnavigate from "./Hooks/useNnavigate";
 import useOptions from "./Hooks/useOptions";
 import useValue from "./Hooks/useValue";
 import useVisible from "./Hooks/useVisible";
 import { SelectProps } from "./interface";
 import SelectBox from "./SelectInner/SelectBox";
 import SelectSearch from "./SelectInner/SelectSearch";
-import useNnavigate from "./Hooks/useNnavigate";
 
 const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true } };
 
 export const Select = React.forwardRef((props: SelectProps, innerRef: React.MutableRefObject<any>) => {
-    const {
-        prefixCls = "xy-select",
-        className,
-        style,
-        children,
-        multiple,
-        stretch = true,
-        popupClassName,
-        searchMode = false,
-        filter,
-        disabled = false,
-        placeholder,
-        empyPlaceholder,
-        onBlur,
-    } = props;
+    const { prefixCls = "xy-select", className, style, children, multiple, stretch = true, popupClassName, searchMode = false, filter, disabled = false, placeholder, empyPlaceholder, onBlur } = props;
     if (!innerRef) {
         innerRef = useRef(null);
     }
@@ -83,17 +69,7 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
 
     return (
         <ValueContext.Provider value={{ value, onSelect, onUnSelect }}>
-            <Trigger
-                prefixCls={`${prefixCls}-transition`}
-                visible={visible}
-                onChange={setVisible}
-                alignRef={align}
-                action={ACTION}
-                popupAlign={POPUPALIGN}
-                popupClassName={popupClassName}
-                stretch={stretch}
-                popup={renderDropdown()}
-            >
+            <Trigger prefixCls={`${prefixCls}-transition`} visible={visible} onChange={setVisible} alignRef={align} action={ACTION} popupAlign={POPUPALIGN} popupClassName={popupClassName} stretch={stretch} popup={renderDropdown()}>
                 <div className={classString} style={style}>
                     <SelectBox multiple={multiple} selectedCfg={selectedCfg} placeholder={placeholder} onKeyDown={handleKeyPress} onBlur={onBlur} ref={innerRef}>
                         {searchMode && <SelectSearch prefixCls={prefixCls} visible={visible} search={search} onSearchChange={searchHandle} />}

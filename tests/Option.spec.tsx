@@ -1,6 +1,6 @@
+import { fireEvent, render } from "@testing-library/react";
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import { Select, OptGroup, Option, SelectLocal, OptionsContext, OptionStateContext, ValueContext } from "../src";
+import { OptGroup, Option, OptionsContext, OptionStateContext, ValueContext } from "../src";
 import { OptionConfig } from "../src/interface";
 
 describe("Option", () => {

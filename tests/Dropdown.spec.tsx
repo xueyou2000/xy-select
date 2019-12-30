@@ -1,8 +1,6 @@
+import { render } from "@testing-library/react";
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import { Select, OptGroup, Option, Dropdown, SelectLocal, OptionsContext, OptionStateContext, ValueContext } from "../src";
-import { OptionConfig } from "../src/interface";
-import { EXITED, ENTERING, ENTERED } from "utils-hooks";
+import { Dropdown, Option } from "../src";
 
 describe("Dropdown", () => {
     test("Show Empty Placeholder By Props", () => {
