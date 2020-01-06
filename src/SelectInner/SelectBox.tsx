@@ -10,7 +10,7 @@ import { getLocal } from "../local";
  *   - 处理占位符文本
  */
 export const SelectBox = React.forwardRef((props: SelectBoxProps, ref: React.MutableRefObject<any>) => {
-    const { prefixCls = "xy-select-box", className, style, selectedCfg, children, multiple, onClick, onKeyDown, onFocus, onBlur, placeholder = getLocal().Select.placeholder } = props;
+    const { prefixCls = "xy-select-box", className, style, selectedCfg, children, multiple, onClick, onKeyDown, onFocus, onBlur, placeholder = getLocal().Select.placeholder, renderSelectItem } = props;
     const classString = classNames(prefixCls, className, {
         [`${prefixCls}-multiple`]: multiple,
     });
@@ -21,7 +21,7 @@ export const SelectBox = React.forwardRef((props: SelectBoxProps, ref: React.Mut
     return (
         <div className={classString} style={style} onClick={onClick} onKeyDown={onKeyDown} tabIndex={0} onFocus={onFocus} onBlur={onBlur} ref={ref}>
             <div className={`${prefixCls}__rendered`}>
-                {notEmpty ? <SelectBoxContent multiple={multiple} selectedCfg={selectedCfg} /> : _placeholder}
+                {notEmpty ? <SelectBoxContent renderSelectItem={renderSelectItem} multiple={multiple} selectedCfg={selectedCfg} /> : _placeholder}
                 {children}
             </div>
             <span className={`${prefixCls}__arrow`}>

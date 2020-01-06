@@ -2,7 +2,7 @@ $ItemPrefixCls: "xy-select-item";
 
 .#{$ItemPrefixCls} {
     float: left;
-    max-width: 100%;
+    max-width: calc(100% - 22px);
     padding-right: 20px;
     overflow: hidden;
     white-space: nowrap;

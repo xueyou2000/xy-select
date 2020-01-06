@@ -175,6 +175,10 @@ export interface SelectProps {
      * 是否搜索模式
      */
     searchMode?: boolean;
+    /**
+     * 自定义渲染选中SelectBox选中项
+     */
+    renderSelectItem?: (cfg: OptionConfig) => React.ReactNode;
 }
 
 export interface OptionStateContextState {
@@ -289,6 +293,10 @@ export interface SelectBoxProps {
      * 失去焦点事件
      */
     onBlur?: (event: React.FocusEvent<HTMLDivElement>) => void;
+    /**
+     * 自定义渲染选中SelectBox选中项
+     */
+    renderSelectItem?: (cfg: OptionConfig) => React.ReactNode;
 }
 
 /**
@@ -307,6 +315,10 @@ export interface SelectBoxContentProps {
      * 已经选中的OptionConfig配置集合
      */
     selectedCfg?: OptionConfig | OptionConfig[];
+    /**
+     * 自定义渲染选中SelectBox选中项
+     */
+    renderSelectItem?: (cfg: OptionConfig) => React.ReactNode;
 }
 
 /**
@@ -358,7 +370,7 @@ export interface SelectItemProps {
     /**
      * 内容
      */
-    children: string;
+    children: React.ReactNode;
     /**
      * 值
      */

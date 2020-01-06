@@ -4,7 +4,7 @@ import MultipleItem from "./MultipleItem";
 import SingleItem from "./SingleItem";
 
 export function SelectBoxContent(props: SelectBoxContentProps): any {
-    const { prefixCls = "xy-select", multiple, selectedCfg } = props;
+    const { prefixCls = "xy-select", multiple, selectedCfg, renderSelectItem } = props;
 
     if (multiple) {
         const cfgs = selectedCfg as OptionConfig[];
@@ -13,7 +13,7 @@ export function SelectBoxContent(props: SelectBoxContentProps): any {
                 <ul>
                     {cfgs.map((cfg) => (
                         <MultipleItem prefixCls={prefixCls} value={cfg.value} key={cfg.value}>
-                            {cfg.label}
+                            {renderSelectItem ? renderSelectItem(cfg) : cfg.label}
                         </MultipleItem>
                     ))}
                 </ul>
@@ -24,7 +24,7 @@ export function SelectBoxContent(props: SelectBoxContentProps): any {
         return (
             selectedCfg && (
                 <SingleItem prefixCls={prefixCls} value={cfg.value}>
-                    {cfg.label}
+                    {renderSelectItem ? renderSelectItem(cfg) : cfg.label}
                 </SingleItem>
             )
         );

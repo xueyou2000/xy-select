@@ -18,5 +18,10 @@
         "name": "Search",
         "title": "搜索模式",
         "desc": "设置 search 属性为 true 开启搜索模式, 点击下拉列表会有输入框，搜索对应 Option"
+    },
+    {
+        "name": "RenderSelectBox",
+        "title": "自定义渲染",
+        "desc": "自定义渲染选中项目, 常用与Option内容特殊定制."
     }
 ]
