@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.2 (Wed Jan 08 2020)
+
+-   删除旧编译代码, 同名冲突
+
 ## 1.3.1 (Mon Jan 06 2020)
 
 -   增加`renderSelectItem`属性, 自定义渲染选中元素
