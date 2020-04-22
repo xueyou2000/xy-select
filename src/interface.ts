@@ -179,6 +179,10 @@ export interface SelectProps {
      * 自定义渲染选中SelectBox选中项
      */
     renderSelectItem?: (cfg: OptionConfig) => React.ReactNode;
+    /**
+     * 搜索过滤禁用
+     */
+    searchFilterDisabled?: boolean;
 }
 
 export interface OptionStateContextState {
@@ -194,6 +198,10 @@ export interface OptionStateContextState {
      * 搜索值
      */
     search?: string;
+    /**
+     * 搜索过滤禁用
+     */
+    searchFilterDisabled?: boolean;
 }
 
 export interface ValueContextState {

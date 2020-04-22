@@ -7,11 +7,15 @@ import { OptionConfig, OptionProps, SelectFilter } from "../interface";
 /**
  * 判断是否过滤
  * @param cfg   option配置
+ * @param searchFilterDisabled    搜索过滤禁用
  * @param filter    是否过滤/过滤函数
  * @param search    当前搜索内容
  * @returns 返回true则过滤, 返回false不过滤
  */
-function useHasFiltered(cfg: OptionConfig, filter?: SelectFilter, search?: string) {
+function useHasFiltered(cfg: OptionConfig, searchFilterDisabled: boolean, filter?: SelectFilter, search?: string) {
+    if (searchFilterDisabled) {
+        return false;
+    }
     if (search) {
         const _search = search.toLowerCase();
         const value = String(cfg.value).toLowerCase();
@@ -38,10 +42,10 @@ export function Option(props: OptionProps) {
         [`${prefixCls}-checked`]: getContextChecked(),
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-divided`]: divided,
-        [`${prefixCls}-focus`]: stateContext && stateContext.focusValue === value
+        [`${prefixCls}-focus`]: stateContext && stateContext.focusValue === value,
     });
     const cfg = useRef<OptionConfig>({ value, label, disabled, filtered: false });
-    const filtered = stateContext ? useHasFiltered(cfg.current, stateContext.filter, stateContext.search) : false;
+    const filtered = stateContext ? useHasFiltered(cfg.current, stateContext.searchFilterDisabled, stateContext.filter, stateContext.search) : false;
     // Option更新后, 也要更新这些值
     cfg.current.filtered = filtered;
     cfg.current.label = label;

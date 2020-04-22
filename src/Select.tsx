@@ -16,7 +16,23 @@ const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true } };
 
 export const Select = React.forwardRef((props: SelectProps, innerRef: React.MutableRefObject<any>) => {
-    const { prefixCls = "xy-select", className, style, children, multiple, stretch = true, popupClassName, searchMode = false, filter, disabled = false, placeholder, empyPlaceholder, onBlur, renderSelectItem } = props;
+    const {
+        prefixCls = "xy-select",
+        className,
+        style,
+        children,
+        multiple,
+        stretch = true,
+        popupClassName,
+        searchMode = false,
+        filter,
+        disabled = false,
+        placeholder,
+        empyPlaceholder,
+        onBlur,
+        renderSelectItem,
+        searchFilterDisabled = false,
+    } = props;
     if (!innerRef) {
         innerRef = useRef(null);
     }
@@ -32,14 +48,14 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-visible`]: visible,
         [`${prefixCls}-searchMode`]: searchMode,
-        [`${prefixCls}-hide-item`]: search !== "",
+        [`${prefixCls}-hide-item`]: search !== "" && searchFilterDisabled === false,
         [`${prefixCls}-has-value`]: multiple ? value && value.length > 0 : !!value,
     });
     const selectedCfg = getOptionCfg(value);
     const [empty, setEmpty] = useState(false);
 
     useUpdateEffect(() => {
-        let _empty = options.current.filter((x) => !x.disabled && !x.filtered).length === 0 && search !== "";
+        let _empty = options.current.filter((x) => !x.disabled && !x.filtered).length === 0 && search !== "" && searchFilterDisabled === false;
         if (!searchMode && options.current.length === 0) {
             _empty = true;
         }
@@ -57,7 +73,7 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
 
     function renderDropdown() {
         return (
-            <OptionStateContext.Provider value={{ focusValue, filter, search }}>
+            <OptionStateContext.Provider value={{ focusValue, filter, search, searchFilterDisabled }}>
                 <OptionsContext.Provider value={optionsContextRef.current}>
                     <Dropdown prefixCls={prefixCls} empty={empty} placeholder={empyPlaceholder} scrollwrapRef={scrollwrapRef}>
                         {children}

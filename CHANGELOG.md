@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.3 (Tue Apr 21 2020)
+
+-   增加`searchFilterDisabled`搜索过滤禁用
+
 ## 1.3.2 (Wed Jan 08 2020)
 
 -   删除旧编译代码, 同名冲突
