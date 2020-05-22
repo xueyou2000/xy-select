@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.3.4 (Fri May 22 2020)
+
+-   多选时排除 null 值在数组
+-   修复多搜索下占位符没有隐藏问题
+
 ## 1.3.3 (Tue Apr 21 2020)
 
 -   增加`searchFilterDisabled`搜索过滤禁用

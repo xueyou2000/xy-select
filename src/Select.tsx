@@ -48,7 +48,7 @@ export const Select = React.forwardRef((props: SelectProps, innerRef: React.Muta
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-visible`]: visible,
         [`${prefixCls}-searchMode`]: searchMode,
-        [`${prefixCls}-hide-item`]: search !== "" && searchFilterDisabled === false,
+        [`${prefixCls}-hide-item`]: search !== "",
         [`${prefixCls}-has-value`]: multiple ? value && value.length > 0 : !!value,
     });
     const selectedCfg = getOptionCfg(value);

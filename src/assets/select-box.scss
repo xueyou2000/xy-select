@@ -42,8 +42,14 @@ $BoxWarpPrefixCls: "xy-select-box";
 
     &[disabled] {
         cursor: text;
+        background: transparent;
     }
 }
+
+.#{$SelectWarpPrefixCls}-has-value .#{$SelectWarpPrefixCls}-search__field {
+    display: none;
+}
+
 .#{$BoxWarpPrefixCls}__rendered {
     position: relative;
     display: block;

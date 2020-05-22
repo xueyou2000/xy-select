@@ -44,6 +44,9 @@ export default function useValue(props: SelectProps, setVisible: (v: boolean) =>
             return;
         }
         if (multiple) {
+            if (val === null) {
+                return;
+            }
             if (!value) {
                 setSelectedValue([val]);
                 return;
